@@ -1,0 +1,563 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+
+</h:head>
+<h:body>
+
+    <ui:composition template="template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <p:outputPanel id="demandes" rendered="#{demandeBean.demandeur ne null}" autoUpdate="true">
+                <h:form id="editDemandeForm" enctype="multipart/form-data" style="width: 100%">
+                    <div>
+                        <ui:include src="steps.xhtml"></ui:include>
+                    </div>
+                    <br></br>
+
+                    <div>
+                        <p:fieldset legend="#{projet.mon_dossier_msg}"
+                                    style="font-style:normal;margin-bottom:20px; border-color: #949699;color: #000000; background:#ffffff;">
+                            <ui:fragment rendered="#{demandeBean.addNewDemande or !demandeBean.estModifier}">
+                                <div>
+                                    <input type="image" class="pull-right" id="help" src="../resources/images/help8.png"
+                                           style="margin: -5px" title="#{projet.menu_help}"></input>
+                                </div>
+                            </ui:fragment>
+                            <p:outputPanel id="outputpanel" autoUpdate="true">
+                                <p:spacer></p:spacer>
+                                <div data-step="2" data-intro="#{projet.help1_etap2}" data-position='left'
+                                     data-disable-interaction='true'>
+                                    <p:dataTable emptyMessage="#{projet.empty_datatable}" var="demande"
+                                                 value="#{demandeBean.demandeAuthentifications}"
+                                                 selection="#{demandeBean.demandeAuthentification}"
+                                                 rowIndexVar="rowIndex">
+
+
+                                        <f:facet name="header">
+
+                                            <div class="alert alert-info" data-step="1"
+                                                 data-intro="#{projet.help1_etap1}"
+                                                 data-position='auto' data-disable-interaction='true'>
+                                                <strong>#{projet.inscription_etape_confirmation_btn}</strong>
+
+                                                <p:commandButton
+                                                        rendered="#{demandeBean.addNewDemande or !demandeBean.estModifier}"
+                                                        id="btnNew" update="demandes" ajax="true"
+                                                        onstart="PF('content').block()"
+                                                        style="float: right"
+                                                        onsuccess="PF('content').unblock()"
+                                                        disabled="#{demandeBean.demandeur.cursusValide}"
+                                                        value="#{projet.nouvelle_demande_btn}"
+                                                        icon="fa fa-fw fa-plus"
+                                                        actionListener="#{demandeBean.addDemandeAction}"/>
+
+                                                <p:tooltip id="toolTipNew" for="btnNew"
+                                                           value="#{projet.inscription_etape_confirmation_btn}"
+                                                           header="Style Override" styleClass="custom-tooltip"
+                                                           position="bottom"
+                                                           showEffect="clip"/>
+                                            </div>
+
+                                        </f:facet>
+                                        <div>
+
+                                            <p:column headerText="#{projet.table_N}" width="7%"
+                                                      sortable="#{demande.rang}">
+                                                <div align="center"><h:outputText value="#{rowIndex+1}">
+                                                </h:outputText></div>
+                                            </p:column>
+                                            <p:column headerText="#{projet.table_info_Cursus}" width="15%">
+                                                <div align="center"><h:outputText
+                                                        value="#{localBean.locale=='ar_dz'?demande.typeCursus.libelleLongAr:demande.typeCursus.libelleCourtFr}"
+                                                        style="text-align: center">
+                                                </h:outputText></div>
+                                            </p:column>
+                                            <p:column headerText="#{projet.table_info_Type_document}" width="15%">
+                                                <div align="center"><h:outputText
+                                                        value="#{localBean.locale=='ar_dz'?demande.typeDiplome.diplomeAr:demande.typeDiplome.diplomeFr}"
+                                                        style="text-align: center">
+                                                </h:outputText></div>
+                                            </p:column>
+                                            <p:column headerText="#{projet.table_info_Etablissement}">
+                                                <div align="center"><h:outputText
+                                                        value="#{localBean.locale=='ar_dz'?demande.refEtablissement.llEtablissementArabe:demande.refEtablissement.llEtablissementLatin}">
+                                                </h:outputText></div>
+                                            </p:column>
+                                            <p:column headerText="#{projet.table_info_Annee_obtention}" width="10%">
+                                                <div align="center"><h:outputText value="#{demande.anneeDelivrance}"
+                                                                                  style="text-align: center">
+                                                </h:outputText></div>
+                                            </p:column>
+                                            <p:column headerText="#{projet.table_info_Etat_Traitement}" width="15%">
+                                                <div align="center"><h:outputText styleClass=" fa fa-hourglass-start"
+                                                                                  value=" #{projet.etat_traitement}"
+                                                                                  rendered="#{demande.enTraitement and (demande.estAccordee eq null)}"
+                                                                                  style="text-align: center">
+
+                                                </h:outputText>
+
+                                                    <h:outputText
+                                                            value="#{demande.estAccordee ? projet.estAccordee:projet.estRefusee}"
+
+                                                            rendered="#{demande.estAccordee ne null}"
+                                                            style="text-align: justify">
+
+                                                    </h:outputText>
+                                                    <p:commandButton id="btnRdv2" value="#{projet.botton_Rdv_1}"
+                                                                     icon="fa fa-print"
+                                                                     style="background-color: #21ad4f;border-color: #21ad4f;font-size:12px"
+                                                                     rendered="#{demandeBean.demandeur.cursusValide and demande.estAccordee eq true}"
+                                                                     actionListener="#{demandeBean.toRdv(demande)}"
+                                                                     ajax="false"
+                                                                     process="@this">
+                                                        <f:setPropertyActionListener value="#{demande}"
+                                                                                     target="#{demandeBean.demandeAuthentification}"/>
+                                                        <p:tooltip id="toolTipRdv2" for="btnRdv2"
+                                                                   value="#{projet.botton_Rdv}"
+                                                                   header="Style Override" styleClass="custom-tooltip"
+                                                                   position="bottom"
+                                                                   showEffect="clip"/>
+
+                                                    </p:commandButton>
+                                                </div>
+                                            </p:column>
+                                            <p:column headerText="#" width="12%"
+                                                      rendered="#{!demandeBean.demandeur.cursusValide}">
+                                                <div align="center">
+                                                    <h:outputText rendered="#{demande.estAccordee eq true }"
+                                                                  value="#{projet.date_RDV}">
+                                                    </h:outputText>
+                                                    <p:spacer></p:spacer>
+                                                    <h:outputText
+                                                            value="#{demande.dateRdv}"
+                                                            rendered="#{demande.estAccordee eq true }"
+                                                            style="text-align: -moz-center"><f:convertDateTime
+                                                            pattern="dd/MM/YYYY"></f:convertDateTime>
+
+                                                    </h:outputText>
+                                                    <p:spacer></p:spacer>
+                                                    <p:commandButton id="btnRdv" value="#{projet.botton_Rdv_1}"
+                                                                     icon="fa fa-print"
+                                                                     style="background-color: #21ad4f;border-color: #21ad4f;font-size:12px"
+                                                                     rendered="#{demande.estAccordee eq true }"
+                                                                     actionListener="#{demandeBean.toRdv(demande)}"
+                                                                     ajax="false"
+                                                                     process="@this">
+                                                        <f:setPropertyActionListener value="#{demande}"
+                                                                                     target="#{demandeBean.demandeAuthentification}"/>
+                                                        <p:tooltip id="toolTipRdv" for="btnRdv"
+                                                                   value="#{projet.botton_Rdv}"
+                                                                   header="Style Override" styleClass="custom-tooltip"
+                                                                   position="bottom"
+                                                                   showEffect="clip"/>
+
+                                                    </p:commandButton>
+                                                    <p:spacer></p:spacer>
+
+                                                    <p:commandButton icon="fa fa-fw fa-pencil" id="btnUpdate"
+                                                                     disabled="#{demandeBean.estModifier or demande.enTraitement}"
+                                                                     rendered="#{demande.estAccordee eq null or !demande.estAccordee}"
+
+                                                                     actionListener="#{demandeBean.toEditDemande(demande)}"
+                                                                     update="@form  @([id$=editDiplome2])"
+                                                                     ajax="true"
+                                                                     process="@this"
+                                                                     onstart="PF('content').block()"
+                                                                     onsuccess="PF('content').unblock()">
+                                                        <f:setPropertyActionListener value="#{demande}"
+                                                                                     target="#{demandeBean.demandeAuthentification}"/>
+                                                        <p:tooltip id="toolTipUpdate" for="btnUpdate"
+                                                                   value="#{projet.botton_modifier}"
+                                                                   header="Style Override" styleClass="custom-tooltip"
+                                                                   position="bottom"
+                                                                   showEffect="clip"/>
+
+                                                    </p:commandButton>
+                                                    <p:spacer></p:spacer>
+                                                    <p:commandButton icon="fa fa-fw fa-trash" id="btnDelete"
+                                                                     disabled="#{demandeBean.estModifier or demande.enTraitement}"
+                                                                     rendered="#{demande.estAccordee eq null}"
+                                                                     style="background-color: #f53f28;border-color: #f53f28;"
+                                                                     action="#{demandeBean.delete}"
+                                                                     update="editDemandeForm:outputpanel"
+                                                                     ajax="true"
+                                                                     process="@this"
+                                                                     onstart="PF('content').block()"
+                                                                     onsuccess="PF('content').unblock()">
+                                                        <p:confirm header="#{projet.delete_btn_header}"
+                                                                   icon="fa fa-trash"
+                                                                   message="#{projet.delete_btn}"/>
+
+                                                        <p:tooltip id="toolTipbtnDelete" for="btnDelete"
+                                                                   value="#{projet.botton_supprimer}"
+                                                                   header="Style Override" styleClass="custom-tooltip"
+                                                                   position="bottom"
+                                                                   showEffect="clip"/>
+                                                        <f:setPropertyActionListener value="#{demande}"
+                                                                                     target="#{demandeBean.demandeAuthentification}"/>
+
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                        <p:commandButton value="#{projet.delete_btn_oui}"
+                                                                         actionListener="#{demandeBean.delete()}"
+                                                                         style="background-color: #21AD4F;border-color: #21AD4F;float: right"
+                                                                         type="button" styleClass="ui-confirmdialog-yes"
+                                                                         icon="fa fa-check"
+                                                                         update="@all" immediate="true" ajax="true">
+                                                            <f:setPropertyActionListener value="#{demande}"
+                                                                                         target="#{demandeBean.demandeAuthentification}"/>
+                                                        </p:commandButton>
+
+                                                        <p:commandButton value="#{projet.delete_btn_non}" type="button"
+                                                                         style="background-color: #f53f28;border-color: #f53f28;float: left"
+                                                                         styleClass="ui-confirmdialog-no"
+                                                                         icon="fa fa-close"
+                                                                         update="@all"
+                                                                         ajax="true">
+                                                            <f:setPropertyActionListener value="#{demande}"
+                                                                                         target="#{demandeBean.demandeAuthentification}"/>
+                                                        </p:commandButton>
+                                                    </p:confirmDialog>
+                                                </div>
+                                            </p:column>
+                                        </div>
+
+                                    </p:dataTable>
+                                </div>
+                                <p:spacer></p:spacer>
+
+                            </p:outputPanel>
+                        </p:fieldset>
+                    </div>
+                    <p:spacer></p:spacer>
+                    <div id="demande">
+
+                        <p:fieldset legend="#{projet.table_ma_demande}"  rendered="#{demandeBean.addNewDemande}"
+                                    style="font-style:normal;margin-bottom:20px; border-color: #949699;color: #000000; background:#ffffff;">
+                            <div class="alert alert-info">
+                                <strong>#{projet.formulaire_demande}</strong>
+                            </div>
+
+                            <div data-step="3"
+                                 data-intro="#{projet.help1_etap3}"
+                                 data-position='bottom' data-disable-interaction='true'>
+                                <p:outputPanel id="editDiplome" rendered="#{demandeBean.addNewDemande}">
+                                    <p:panelGrid columns="2" id="grid1" cellpadding="5" style="width:100%" columnClasses="ui-grid-col-2,ui-grid-col-6" >
+                                        <f:facet name="header">#{projet.info_ma_demande}</f:facet>
+                                        <p:outputLabel value="#{projet.Type_Cursus}" styleClass="value"/>
+                                        <p:selectOneMenu value="#{demandeBean.idTypeCursus}" id="cursus" required="true"
+                                                         requiredMessage="#{required.msg_cursus_demande}"
+                                                         style="width: 100%"
+                                                         hideNoSelectionOption="true">
+                                            <f:selectItem itemLabel="#{projet.SelectionerCursus}" itemValue="#{null}"
+                                                          noSelectionOption="true"/>
+                                            <f:selectItems value="#{localBean.locale=='ar_dz'?demandeBean.getTypeCursusCandidatAr():demandeBean.getTypeCursusCandidat()}"/>
+                                            <p:ajax event="change" listener="#{demandeBean.onCursusChanged()}"
+                                                    onstart="PF('content').block()"
+                                                    onsuccess="PF('content').unblock()"
+                                                    update="diplome"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{projet.Type_Document_Authentifier}" styleClass="value"/>
+                                        <p:selectOneMenu value="#{demandeBean.idTypeDiplome}" id="diplome"
+                                                         required="true"
+                                                         requiredMessage="#{required.msg_type_diplome}"
+                                                         hideNoSelectionOption="true"
+                                                         style="width: 100% !important">
+                                            <f:selectItem itemLabel="#{projet.SelectionerDocument}" itemValue="#{null}"
+                                                          noSelectionOption="true"/>
+                                            <f:selectItems value="#{localBean.locale=='ar_dz'?demandeBean.listDiplomesAr:demandeBean.listDiplomes}"/>
+                                            <p:ajax event="change" listener="#{demandeBean.onDiplomeChanged()}"
+                                                    onstart="PF('content').block()"
+                                                    onsuccess="PF('content').unblock()"
+                                                    update="diplome"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{projet.table_info_Etablissement}" styleClass="value"/>
+                                        <p:selectOneMenu value="#{demandeBean.idEtablissement}" id="etab"
+                                                         required="true"
+                                                         requiredMessage="#{required.msg_etablissement_diplome}"
+                                                         hideNoSelectionOption="true"
+                                                         filter="true" filterMatchMode="contains"
+                                                         style="width: 100% !important">
+                                            <f:selectItem itemLabel="#{projet.SelectionerEtablissement}"
+                                                          itemValue="#{null}"
+                                                          noSelectionOption="true"/>
+                                            <f:selectItems value="#{localBean.locale=='ar_dz'?demandeBean.refEtablissementsAr:demandeBean.refEtablissements}"/>
+                                            <p:ajax event="change" listener="#{demandeBean.onCursusChanged()}"
+                                                    onstart="PF('content').block()"
+                                                    onsuccess="PF('content').unblock()"
+                                                    var="etab" itemLabel="#{etab.label}" itemValue="#{etab.id}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{projet.table_info_Annee_obtention}" styleClass="value"/>
+                                        <p:selectOneMenu hideNoSelectionOption="true"
+                                                         value="#{demandeBean.demandeAuthentification.anneeDelivrance}"
+                                                         required="true"
+                                                         requiredMessage="#{required.msg_diplome_annee_obtention}"
+                                                         filter="true" filterMatchMode="contains"
+                                                         style="width: 100% !important">
+                                            <f:selectItem itemLabel="#{projet.SelectionerAnnee}"
+                                                          itemValue="#{null}"
+                                                          noSelectionOption="true"/>
+
+                                            <f:selectItems value="#{inscriptionBean.getAnneeObtentionDipl()}"/>
+                                            <p:ajax event="change"
+                                                    onstart="PF('content').block()"
+                                                    onsuccess="PF('content').unblock()"
+                                                    listener="#{demandeBean.changeAnnee}"/>
+
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </div>
+                        </p:fieldset>
+                    </div>
+
+                    <p:spacer></p:spacer>
+
+                    <p:fieldset legend="#{projet.modifier_ma_demande}" rendered="#{demandeBean.estModifier}"
+                                style="font-style:normal;margin-bottom:20px; border-color: #949699;color: #000000; background:#ffffff;">
+
+                        <div>
+                            <p:outputPanel id="editDiplome2" rendered="#{demandeBean.estModifier}">
+                                <p:panelGrid columns="2" id="grid2" cellpadding="20" style="width:100%">
+
+                                    <f:facet name="header">#{projet.midifier_demande}
+
+                                    </f:facet>
+                                    <p:outputLabel value="#{projet.Type_Cursus}" styleClass="value"/>
+                                    <p:selectOneMenu value="#{demandeBean.idTypeCursus}" id="cursus2"
+                                                     style="width: 100% !important">
+                                        <f:selectItem itemLabel=""/>
+                                        <f:selectItems value="#{localBean.locale=='ar_dz'?demandeBean.getTypeCursusCandidatAr():demandeBean.getTypeCursusCandidat()}"/>
+                                        <p:ajax event="change" listener="#{demandeBean.onCursusChanged()}"
+                                                onstart="PF('content').block()"
+                                                onsuccess="PF('content').unblock()"
+                                                update="diplome2"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="#{projet.Type_Document_Authentifier}" styleClass="value"/>
+                                    <p:selectOneMenu value="#{demandeBean.idTypeDiplome}" id="diplome2"
+                                                     style="width: 100% !important">
+                                        <f:selectItem itemLabel="#{projet.SelectionerDocument}" itemValue="#{null}"
+                                                      noSelectionOption="true"/>
+                                        <f:selectItems value="#{localBean.locale=='ar_dz'?demandeBean.listDiplomesAr:demandeBean.listDiplomes}"/>
+                                        <p:ajax event="change" listener="#{demandeBean.onDiplomeChanged()}"
+                                                onstart="PF('content').block()"
+                                                onsuccess="PF('content').unblock()"
+                                                update="etab2"/>
+
+
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="#{projet.table_info_Etablissement}" styleClass="value"/>
+                                    <p:selectOneMenu value="#{demandeBean.idEtablissement}" id="etab2"
+                                                     filter="true" filterMatchMode="contains"
+                                                     style="width: 100% !important">
+                                        <f:selectItem itemLabel=""/>
+                                        <f:selectItems value="#{localBean.locale=='ar_dz'?demandeBean.refEtablissementsAr:demandeBean.refEtablissements}"/>
+                                        <p:ajax event="change" listener="#{demandeBean.onCursusChanged()}"
+                                                onstart="PF('content').block()"
+                                                onsuccess="PF('content').unblock()"
+                                                var="etab" itemLabel="#{etab.label}" itemValue="#{etab.id}"/>
+
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="#{projet.table_info_Annee_obtention}" styleClass="value"/>
+                                    <p:selectOneMenu
+                                            value="#{demandeBean.demandeAuthentification.anneeDelivrance}"
+                                            required="true"
+                                            requiredMessage="#{required.msg_diplome_annee_obtention}"
+                                            filter="true" filterMatchMode="contains" style="width: 40% !important">
+                                        <f:selectItems value="#{inscriptionBean.getAnneeObtentionDipl()}"/>
+                                        <p:ajax event="change"
+                                                onstart="PF('content').block()"
+                                                onsuccess="PF('content').unblock()"
+                                                listener="#{demandeBean.changeAnnee}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                                <p:spacer></p:spacer>
+                            </p:outputPanel>
+                        </div>
+                    </p:fieldset>
+
+                    <p:fieldset legend="#{projet.document}"
+                                style="font-style:normal;margin-bottom:20px; border-color: #949699; background:#ffffff;"
+                                rendered="#{(demandeBean.documentsDemandeur.size() ne 0 and demandeBean.isNew) or demandeBean.estModifier}">
+
+
+                        <div class="alert alert-warning" style="font-size: 14px">
+                            <strong>#{projet.document_msg}</strong>
+                        </div>
+
+                        <div data-step="3"
+                             data-intro="Vuillez déposer les documents requis "
+                             data-position='bottom' data-disable-interaction='true'>
+                            <p:dataTable id="datatableDocument" var="doc" value="#{demandeBean.documentsDemandeur}"
+                                         rendered="#{(demandeBean.documentsDemandeur.size() ne 0 and demandeBean.isNew) or demandeBean.estModifier}">
+
+                                <p:column headerText="#{projet.table_info_Type_document}">
+                                    <h:outputText
+                                            value=" #{localBean.locale=='ar_dz'?doc.libellePieceAr:doc.libellePiece}"
+                                            style="text-align: justify">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{projet.diplome_documents_obligatoire}">
+                                    <h:outputText
+                                            value="#{doc.typePiece.obligatoire ? projet.delete_btn_oui:projet.delete_btn_non}"
+                                            style="display:block; text-align:center">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{projet.diplome_type_fichier}">
+                                    <p:commandLink title="#{projet.diplome_telecharger_docs}" ajax="false"
+                                                   rendered="#{doc.estFourni}" immediate="true"
+                                                   style=""
+                                                   actionListener="#{demandeBean.prepareFileToDownload(doc)}">
+                                        <p:graphicImage library="images" name="pdf.png"/>
+                                        <p:fileDownload value="#{demandeBean.document}"/>
+
+                                    </p:commandLink>
+
+                                    <p:fileUpload value="#{demandeBean.uploadedFile}"
+                                                  rendered="#{!demandeBean.demandeur.docuementValide}"
+                                                  fileUploadListener="#{demandeBean.uploadDocument}"
+                                                  mode="advanced" multiple="false" auto="true"
+                                                  allowTypes="/(\.|\/)(pdf)$/"
+                                                  sizeLimit="52428800"
+                                                  update="@form"
+                                                  style="text-align: center ;"
+                                                  label="#{projet.document_upload}"
+                                                  onstart="PF('content').block()"
+                                                  oncomplete="PF('content').unblock()"
+                                                  onsuccess="PF('content').unblock()">
+                                        <f:attribute name="type"
+                                                     value="#{doc.id}"/>
+                                    </p:fileUpload>
+                                </p:column>
+
+                            </p:dataTable>
+                        </div>
+                    </p:fieldset>
+
+                    <div>
+                        <p:panelGrid id="grid4" columns="3" style="width:100%"
+                                     rendered="#{demandeBean.addNewDemande or demandeBean.estModifier or demandeBean.isNew}">
+
+                            <f:facet name="header">
+
+                                <p:commandButton
+                                        rendered="#{demandeBean.addNewDemande or demandeBean.estModifier or demandeBean.isNew}"
+                                        style="background-color: #f53f28;border-color: #f53f28; "
+                                        update="@form" ajax="true"
+                                        process="@this"
+                                        onstart="PF('content').block()"
+                                        onsuccess="PF('content').unblock()"
+                                        value="#{projet.botton_anuller}" icon="fa fa-fw  fa-undo"
+                                        action="#{demandeBean.annulerDemande()}"/>
+
+                                <p:commandButton rendered="#{demandeBean.addNewDemande or demandeBean.estModifier}"
+                                                 style="background-color: #21ad4f;border-color: #21ad4f; float: right"
+                                                 update="datatableDocument" ajax="true"
+                                                 process="@this"
+                                                 onstart="PF('content').block()"
+                                                 onsuccess="PF('content').unblock()"
+                                                 value="#{projet.botton_save}" icon="fa fa-fw fa-save"
+                                                 action="#{demandeBean.save()}"/>
+
+                            </f:facet>
+                        </p:panelGrid>
+                    </div>
+                    <br></br>
+                    <div>
+                        <p:panelGrid columns="3" style="width:100%"
+                                     rendered="#{!demandeBean.addNewDemande and !demandeBean.estModifier}">
+
+                            <f:facet name="header">
+                                <p:commandButton action="toetat" value="#{projet.btn_precedent}"
+                                                 actionListener="#{demandeBean.previews()}"
+                                                 immediate="true"
+                                                 onstart="PF('content').block()"
+                                                 onsuccess="PF('content').unblock()"
+                                                 style="font-weight: normal;float: left;  color: #000 ;background-color: whitesmoke;border-color: #0aa66e;  border-left-width:7px; "
+                                                 icon="fa fa-fw fa-caret-left"/>
+
+
+                                <p:spacer width="100" height="10"></p:spacer>
+                                <p:commandButton value="#{projet.btn_suivant}"
+                                                 rendered="#{demandeBean.demandeAuthentifications.size() gt 0}"
+                                                 styleClass="pull-right"
+                                                 disabled="#{!demandeBean.demandeur.cursusValide}"
+                                                 actionListener="#{demandeBean.next()}"
+                                                 onstart="PF('content').block()"
+                                                 onsuccess="PF('content').unblock()"
+                                                 style="font-weight: normal;  color: #000 ;background-color: whitesmoke;border-color: #0aa66e;  border-left-width:7px; "
+                                                 icon="fa fa-fw fa-caret-right "/>
+                                <p:commandButton
+                                        value="#{demandeBean.demandeur.cursusValide ? projet.btn_annuler_validation:projet.btn_valider}"
+                                        rendered="#{demandeBean.demandeAuthentifications.size() gt 0}"
+                                        styleClass="pull-right"
+                                        action="#{demandeBean.valider}"
+                                        icon="fa fa-fw fa-check"
+                                        update="editDemandeForm @([id$=steps])"
+                                        onstart="PF('content').block()"
+                                        onsuccess="PF('content').unblock()"
+                                        ajax="true"
+                                        style="font-weight: normal;  color: #000 ;background-color: whitesmoke;border-color: #0aa66e;  border-left-width:7px; "/>
+
+                            </f:facet>
+                        </p:panelGrid>
+                    </div>
+                    <br></br>
+
+                    <script type="text/javascript">
+
+
+                        $(document).ready(function () {
+
+                            // var intro = introJs();
+                            $("#help").click(function () {
+                                localStorage.setItem('EventTour2', '');
+
+                            });
+
+                            $("#help3").click(function () {
+
+                            });
+
+                        });
+
+                        window.addEventListener('load', function () {
+                            var doneTour = localStorage.getItem('EventTour2') === 'Completed';                          // create an array with objects describing each step in the guided tour
+                            var intro = introJs();
+                            if (doneTour) {
+                                return;
+                            } else {
+                                intro.setOption("nextLabel", "Suivant");
+                                intro.setOption("prevLabel", "Précedent");
+                                intro.setOption("skipLabel", "Ignorer");
+                                intro.setOption("doneLabel", "Terminé");
+                                intro.setOption().start();
+                                intro.oncomplete(function () {
+                                    localStorage.setItem('EventTour2', 'Completed');
+                                });
+                                intro.onexit(function () {
+                                    localStorage.setItem('EventTour2', 'Completed');
+                                });
+                            }
+                        })
+
+                    </script>
+                </h:form>
+
+            </p:outputPanel>
+
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+
+
+</html>

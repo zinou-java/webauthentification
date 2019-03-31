@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head/>
+<h:body>
+    <ui:composition template="template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <h:form>
+
+                <ui:include src="steps.xhtml"></ui:include>
+                <br></br>
+                <div>
+                    <input type="image" class="pull-right" id="confirmation" src="../resources/images/help8.png"
+                           style="margin: -5px" title="#{projet.menu_help}"></input>
+
+                </div>
+                <br></br>
+
+                <div class="alert alert-info">
+                    <strong>#{projet.msg_info_confirmation}</strong>
+                </div>
+                <style>
+                    ul li {
+                        font-size: 14px !important;
+                    }
+
+                    .old {
+                        background-color: rgba(245, 63, 40, 0.3) !important;
+                        background-image: none !important;
+                        color: #000000 !important;
+                    }
+
+                </style>
+
+                <p:row rendered="#{confirmationBean.messagesValidation.size()!=0}">
+                    <div class="alert alert-danger" style="font-size: 14px">
+                        <strong>#{projet.msg_info_confirmation_6}</strong>
+                    </div>
+                </p:row>
+
+                <p:dataTable rendered="#{confirmationBean.messagesValidation.size()!=0}"
+                             rowStyleClass="#{confirmationBean.messagesValidation2.size()!=0 ? 'old':null}"
+                             value="#{localBean.locale=='ar_dz'?confirmationBean.messagesValidation:confirmationBean.messagesValidation2}"
+                             var="msg">
+
+                    <p:column headerText="#{projet.msg_info_confirmation_5}" style="font: bold">
+                        <p:outputLabel>#{msg}</p:outputLabel>
+                    </p:column>
+                </p:dataTable>
+                <div data-step="1" data-intro="#{projet.help2_etap1}" data-position='left'>
+                    <p:panel id="basic" style="margin-bottom:20px">
+                        <p:outputPanel>
+
+                            <div style="text-align: justify;">
+                                <br/>
+                                <p:outputLabel value="#{projet.msg_info_confirmation_1}"
+                                               style="color :green;font-size: 15px ;font-weight : bold"/>
+                                <br/>
+                                <ul class="value">
+
+                                    <li>#{projet.msg_info_confirmation_3}</li>
+                                    <li>#{projet.msg_info_confirmation_4}</li>
+                                </ul>
+                            </div>
+                            <center>
+                                <div data-step="2" data-intro="#{projet.help2_etap2}" data-position='left'>
+                                    <p:commandButton actionListener="#{confirmationBean.imprimerDemande()}"
+                                                     id="btndmd"
+                                                     value="#{projet.btn_imprimer}"
+                                                     rendered="#{localBean.localeCode!='ar_DZ'}"
+                                                     disabled="#{(!confirmationBean.demandeur.demandeConfirmee  or confirmationBean.messagesValidation.size()!=0) or demandeBean.demandeAuthentifications.size() eq 0}"
+                                                     ajax="false"
+                                                     styleClass="ui-confirmdialog-yes" icon="fa fa-print"/>
+                                    <p:tooltip id="toolTipdmd" for="btndmd"
+                                               value="#{projet.botton_imprimer}"
+                                               header="Style Override" styleClass="custom-tooltip"
+                                               position="bottom"
+                                               showEffect="clip"/>
+                                    <p:spacer></p:spacer>
+
+                                    <p:commandButton actionListener="#{confirmationBean.imprimerDemandeAr()}"
+                                                     id="btndmdAr"
+                                                     value="#{projet.btn_imprimer}"
+                                                     rendered="#{localBean.localeCode=='ar_DZ'}"
+                                                     disabled="#{(!confirmationBean.demandeur.demandeConfirmee  or confirmationBean.messagesValidation.size()!=0) or demandeBean.demandeAuthentifications.size() eq 0}"
+                                                     ajax="false"
+                                                     styleClass="ui-confirmdialog-yes" icon="fa fa-print"/>
+                                    <p:tooltip id="toolTipdmdAr" for="btndmdAr"
+                                               value="#{projet.botton_imprimer}"
+                                               header="Style Override" styleClass="custom-tooltip"
+                                               position="bottom"
+                                               showEffect="clip"/>
+                                </div>
+                            </center>
+                        </p:outputPanel>
+                    </p:panel>
+                </div>
+                <p:panel rendered="#{confirmationBean.demandeAuthentifications.size() gt 0}">
+                    <p:outputPanel id="outputpanel" autoUpdate="true">
+
+                        <p:spacer></p:spacer>
+                        <div class="alert alert-success">
+                            <strong>#{projet.msg_info_accordee}</strong>
+                        </div>
+                        <p:dataTable emptyMessage="#{projet.empty_datatable}" var="demande"
+                                     value="#{confirmationBean.demandeAuthentifications}"
+                                     selection="#{confirmationBean.demandeAuthentification}"
+                                     rendered="#{confirmationBean.demandeAuthentifications.size() gt 0}"
+                                     rowIndexVar="rowIndex">
+
+
+                            <div>
+
+                                <p:column headerText="#{projet.table_N}" width="5%"
+                                          sortable="#{demande.rang}">
+                                    <div align="center"><h:outputText value="#{demande.rang}">
+                                    </h:outputText></div>
+                                </p:column>
+                                <p:column headerText="#{projet.table_info_Cursus}" width="10%">
+                                    <div align="center"><h:outputText
+                                            value="#{localBean.locale=='ar_dz'?demande.typeCursus.libelleLongAr:demande.typeCursus.libelleCourtFr}"
+                                            style="text-align: center">
+                                    </h:outputText></div>
+                                </p:column>
+                                <p:column headerText="#{projet.table_info_Type_document_authentification}"
+                                          width="15%">
+                                    <div align="center"><h:outputText
+                                            value="#{localBean.locale=='ar_dz'?demande.typeDiplome.diplomeAr:demande.typeDiplome.diplomeFr}"
+                                            style="text-align: center">
+                                    </h:outputText></div>
+                                </p:column>
+                                <p:column headerText="#{projet.table_info_Etablissement}" width="20%">
+                                    <div align="center"><h:outputText
+                                            value="#{localBean.locale=='ar_dz'?demande.refEtablissement.llEtablissementArabe:demande.refEtablissement.llEtablissementLatin}">
+                                    </h:outputText></div>
+                                </p:column>
+                                <p:column headerText="#{projet.table_info_Annee_obtention}" width="10%">
+                                    <div align="center"><h:outputText value="#{demande.anneeDelivrance}"
+                                                                      style="text-align: center">
+                                    </h:outputText></div>
+                                </p:column>
+                                <p:column headerText="#" width="20%"
+                                >
+                                    <div align="center">
+                                        <h:outputText
+                                                value="#{projet.date_RDV}">
+                                        </h:outputText>
+                                        <p:spacer></p:spacer>
+                                        <h:outputText
+                                                value="#{demande.dateRdv}"
+                                                style="text-align: -moz-center"><f:convertDateTime
+                                                pattern="dd/MM/YYYY"></f:convertDateTime>
+
+                                        </h:outputText>
+                                        <br></br>
+                                        <p:spacer></p:spacer>
+                                        <p:commandButton id="btnRdv" value="#{projet.botton_Rdv_1}"
+                                                         icon="fa fa-print"
+                                                         style="background-color: #21ad4f;border-color: #21ad4f;font-size:12px"
+                                                         rendered="#{localBean.localeCode!='ar_DZ'}"
+                                                         actionListener="#{demandeBean.toRdv(demande)}"
+                                                         ajax="false"
+                                                         process="@this">
+                                            <f:setPropertyActionListener value="#{demande}" target="#{demandeBean.demandeAuthentification}"/>
+                                            <p:tooltip id="toolTipRdv" for="btnRdv"
+                                                       value="#{projet.botton_Rdv}"
+                                                       header="Style Override" styleClass="custom-tooltip"
+                                                       position="bottom"
+                                                       showEffect="clip"/>
+
+                                        </p:commandButton>
+                                        <p:commandButton id="btnRdvAr" value="#{projet.botton_Rdv_1}"
+                                                         icon="fa fa-print"
+                                                         style="background-color: #21ad4f;border-color: #21ad4f;font-size:12px"
+                                                         rendered="#{localBean.localeCode=='ar_DZ'}"
+                                                         actionListener="#{demandeBean.toRdvAr(demande)}"
+                                                         ajax="false"
+                                                         process="@this">
+                                            <f:setPropertyActionListener value="#{demande}" target="#{demandeBean.demandeAuthentification}"/>
+                                            <p:tooltip id="toolTipRdvAr" for="btnRdv"
+                                                       value="#{projet.botton_Rdv}"
+                                                       header="Style Override" styleClass="custom-tooltip"
+                                                       position="bottom"
+                                                       showEffect="clip"/>
+
+                                        </p:commandButton>
+                                        <p:spacer></p:spacer>
+
+                                    </div>
+                                </p:column>
+                            </div>
+                        </p:dataTable>
+                        <p:spacer></p:spacer>
+                    </p:outputPanel>
+                </p:panel>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        // var intro = introJs();
+                        $("#confirmation").click(function () {
+                            localStorage.setItem('confirmation', '');
+                        });
+                    });
+                    window.addEventListener('load', function () {
+                        var doneTour = localStorage.getItem('confirmation') === 'Completed';                            // create an array with objects describing each step in the guided tour
+                        // var Steps = [
+                        //     {
+                        //         element: '#step1',
+                        //         intro: "text step 1",
+                        //         position: 'left'
+                        //     },
+                        //     {
+                        //         element: '#step2',
+                        //         intro: "text step 2",
+                        //         position: 'left'
+                        //     },
+                        //     {
+                        //         element: '#step3',
+                        //         intro: "edit info 3",
+                        //         position: 'left'
+                        //     }
+                        // ];
+
+                        // initialize an introjs instance
+                        var intro = introJs();
+
+                        // load data
+                        //intro.setOptions({steps: Steps });
+
+                        // start intro.js
+                        //intro.start().oncomplete(
+
+                        //  location.reload()
+                        //);
+
+                        // intro.onchange(function(targetElement) {
+                        //     console.log(targetElement.id);
+                        //     switch (targetElement.id)
+                        //     {
+                        //         case "step1":
+                        //             function1();
+                        //             break;
+                        //         case "step2":
+                        //             function2();
+                        //             break;
+                        //     }
+                        // }).start();
+
+                        if (doneTour) {
+                            return;
+                        }
+                        else {
+                            intro.setOption("nextLabel", "Suivant");
+                            intro.setOption("prevLabel", "Précedent");
+                            intro.setOption("skipLabel", "Ignorer");
+                            intro.setOption("doneLabel", "Terminé");
+                            intro.setOption('&rarr;', '&larr;').start();
+                            intro.oncomplete(function () {
+                                localStorage.setItem('confirmation', 'Completed');
+                            });
+
+                            intro.onexit(function () {
+                                localStorage.setItem('confirmation', 'Completed');
+                            });
+                        }
+                    })
+                </script>
+            </h:form>
+            <br/>
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>

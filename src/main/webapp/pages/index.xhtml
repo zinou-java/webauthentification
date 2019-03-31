@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pe="http://java.sun.com/jsf/composite"
+>
+
+<h:head>
+    <title>#{apps.application_name}</title>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="shortcut icon" type="image/x-icon"
+          href="#{facesContext.externalContext.request.contextPath}/images/favicon-#{applicationBean.appCode}.ico"/>
+
+    <h:outputStylesheet name="css/bootstrap.min.css"/>
+    <h:outputStylesheet name="css/font-awesome.min.css"/>
+    <h:outputStylesheet name="css/progres-production.css"/>
+    <h:outputStylesheet name="css/jquery.ui.css"/>
+
+    <style type="text/css">
+
+        /* login */
+        body.login {
+            background: #d7d7d7;
+        }
+
+        .login .logo {
+            background: url(../img/logo.png);
+            width: 277px;
+            height: 112px;
+            margin: 10px auto 15px;
+        }
+
+        .login #main {
+            margin-left: 0;
+        }
+
+        .login #content {
+            width: 400px;
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .login .client-form header {
+            color: #999;
+            font-size: 180%;
+            padding: 20px 0 0;
+            text-align: center;
+            border-bottom: none;
+            background: none;
+        }
+
+        .login .smart-form footer {
+            border-top: none;
+            background: #c4c4c4;
+        }
+
+        .login .note {
+            text-align: center;
+            padding-top: 3px;
+        }
+
+        .login .smart-form .note a {
+            color: #555;
+        }
+
+        .login .smart-form .input input {
+            font: 13px/16px Arial, Helvetica, sans-serif;
+        }
+
+        .login .connect1, .login .connect2 {
+            width: 49%;
+            height: 60px;
+            float: left;
+        }
+
+        .login .connect2 {
+            padding-top: 4px;
+        }
+
+        .login .ui-button {
+            padding: 3px 3px 6px !important;
+            float: left !important;
+            margin-right: 20px !important;
+        }
+
+        .login .bas, .login .bas a {
+            color: #666;
+            font-size: 9.5px;
+            line-height: 150%;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .login .well {
+            background: #f0f0f0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .login .smart-form fieldset {
+            background: none;
+        }
+
+        .login .titre {
+            color: #777;
+            font-size: 150%;
+            text-align: center;
+            padding: 8px 0 14px;
+        }
+
+        .login #home {
+            width: 936px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .login #home .well {
+            border: #f0f0f0 solid 3px;
+        }
+
+    </style>
+
+</h:head>
+
+<h:body class="animated fadeInDown login">
+    <ui:composition template="/pages/template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
+            <p:row rendered="#{loginBean.compte==null}">
+                <table>
+                    <tr>
+                        <td width="40%">
+
+                            <div>
+                                <!-- MAIN CONTENT -->
+                                <div>
+                                    <div id="processPanel" class="well no-padding "
+                                         style="width: 300px; height: 262px">
+
+                                        <h:form class="smart-form client-form">
+                                            <header>
+                                                <small>#{projet.index_procedures}</small>
+                                                <br/>
+                                            </header>
+                                            <p:focus/>
+                                            <fieldset style="padding-top: 5px">
+                                                <br/>
+                                                <section>
+                                                    <p:row rendered="#{localBean.localeCode == 'fr_FR'}"> <p:tagCloud
+                                                            model="#{localBean.model_comment_inscrire}">
+
+                                                        <spacer>
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+
+                                                        </spacer>
+                                                    </p:tagCloud>
+                                                    </p:row>
+                                                    <p:row rendered="#{localBean.localeCode =='ar_DZ' }">
+                                                        <p:tagCloud
+                                                                model="#{localBean.model_ar}">
+                                                            <spacer>
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+
+                                                            </spacer>
+                                                        </p:tagCloud>
+                                                    </p:row>
+
+                                                    <p:row rendered="#{localBean.localeCode =='en'}">
+                                                        <p:tagCloud
+                                                                model="#{localBean.model_en}">
+                                                            <spacer>
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+
+                                                            </spacer>
+                                                        </p:tagCloud>
+                                                    </p:row>
+                                                </section>
+
+                                                <!--<div class="procedures" style="size: 25px; direction: rtl">-->
+                                                <!--</div>-->
+                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<br></br>
+                                                &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                            </fieldset>
+                                            <footer>
+                                                <div class="note">
+                                                    &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                                </div>
+                                            </footer>
+
+                                        </h:form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </td>
+                        <td width="40%">
+
+
+                        </td>
+                        <td></td>
+                        <td>
+
+                            <div>
+                                <!-- MAIN CONTENT -->
+                                <div>
+                                    <div id="loginPanel" class="well no-padding "
+                                         style="width: 300px; height: 262px">
+                                        <h:form id="loginFrm" class="smart-form client-form">
+                                            <header>
+                                                <small>#{projet.index_acces_apps}</small>
+                                                <br/>
+                                            </header>
+                                            <p:focus/>
+                                            <fieldset style="padding-top: 5px">
+                                                <p:messages id="messages" showDetail="true"
+                                                            showSummary="false" autoUpdate="true"/>
+                                                <br/>
+                                                <section>
+
+                                                    <label class="input"> <i
+                                                            class="icon-append fa fa-user"></i>
+                                                        <p:inputText
+                                                                id="j_username" autocomplete="off" required="true"
+                                                                value="#{loginBean.username}"
+                                                                label="#{authentificationMsgs.authentification_user}"
+                                                                requiredMessage="#{authentificationMsgs.authentification_user_required}"
+                                                                placeholder="#{authentificationMsgs.authentification_user}"
+                                                        >
+                                                            <f:validateLength minimum="2"/>
+                                                        </p:inputText>
+                                                        <p:tooltip id="toolTipUsername" for="j_username" global="true"
+                                                                   value="#{projet.login_tooltip_msg}"
+                                                                   header="Style Override" styleClass="custom-tooltip"
+                                                                   position="top" showEffect="clip"/>
+                                                    </label>
+
+                                                </section>
+
+                                                <section><label class="input"> <i
+                                                        class="icon-append fa fa-lock"></i> <p:password
+                                                        id="j_password" value="#{loginBean.password}"
+                                                        autocomplete="off" required="true"
+                                                        label="#{authentificationMsgs.authentification_password}"
+                                                        requiredMessage="#{authentificationMsgs.authentification_password_required}"
+                                                        placeholder="#{authentificationMsgs.authentification_password}"/>
+                                                    <p:tooltip id="toolTipPassword" for="j_password"
+                                                               value="#{projet.password_tooltip_msg}"
+                                                               header="Style Override" styleClass="custom-tooltip"
+                                                               position="bottom" showEffect="clip"/>
+
+                                                </label></section>
+
+                                                <section><br/>
+                                                    <div class="connect1">
+                                                        <p:commandButton id="loginBtn" ajax="false" type="submit"
+                                                                         update="@form" value="#{projet.botton_connect}"
+                                                                         action="#{loginBean.login()}"
+                                                                         styleClass="ui-button-save"
+                                                                         style="font-weight: normal; color: #000 ; 	background-color: whitesmoke;
+						                                                    border-color: #0aa66e;  border-left-width:7px; "
+                                                                         icon="fa fa-sign-in"
+                                                                         onclick="jQuery(this).addClass('ui-state-disabled')"
+                                                                         oncomplete="jQuery(this).addClass('ui-state-disabled')"/>
+                                                        <p:tooltip id="toolTipConnect" for="loginBtn"
+                                                                   value="#{projet.btn_connect}" header="Style Override"
+                                                                   styleClass="custom-tooltip" position="bottom"
+                                                                   showEffect="clip"/>
+                                                    </div>
+                                                </section>
+                                            </fieldset>
+                                            <footer>
+                                                <div class="note">
+                                                    <div>
+                                                        <a href="/webauthentification/pages/password/forget_pw.xhtml"
+                                                           style="float: left"><i
+                                                                class="fa fa-lock"></i>&nbsp;#{projet.index_mpd_oblie}
+                                                        </a>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+
+                                                        <a href="/webauthentification/pages/inscription/Inscription.xhtml"
+                                                           style="float: right"><i
+                                                                class="fa fa-user-plus "></i>&nbsp;#{projet.botton_creer_compte}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </footer>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+            </p:row>
+            <p:row rendered="#{loginBean.compte ne null}">
+                <ui:include src="editInfosPersonnelDemandeur1.xhtml"></ui:include>
+            </p:row>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

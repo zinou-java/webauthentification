@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+
+
+    <p:outputPanel id="formCrud" rendered="#{demandeurBeanNew.crud || demandeurBeanNew.isNew()}">
+        <p:panelGrid columns="2" cellpadding="0" style="width:100%" columnClasses="ui-grid-col-2,ui-grid-col-6">
+
+            <p:outputLabel value="Etablissement"></p:outputLabel>
+            <p:selectOneMenu value="#{demandeurBeanNew.refEtablissements}" id="etab1"
+                             filter="true" filterMatchMode="contains"
+                             disabled="#{demandeurBeanNew.demandeur.voeuxValide}"
+                             autoWidth="false"
+                             style="width: 100% !important">
+                <f:selectItem itemLabel="Etablissement"></f:selectItem>
+                <f:selectItems value="#{globalBean.refEtablissements1}"
+                               var="etab" itemLabel="#{etab.llEtablissementLatin}"
+                               itemValue="#{etab.getId()}"/>
+                <p:ajax event="change" update="dom1" listener="#{demandeurBeanNew.onEtablissementChanged1}"
+                        process="@all"/>
+            </p:selectOneMenu>
+
+            <p:outputLabel value="Domaine"></p:outputLabel>
+            <p:selectOneMenu value="#{demandeurBeanNew.idTypeDiplome}" id="dom1"
+                             filter="true" filterMatchMode="contains"
+                             disabled="#{demandeurBeanNew.demandeur.voeuxValide}"
+                             autoWidth="false"
+                             style="width: 100% !important">
+                <f:selectItem itemLabel="Domaine"/>
+                <f:selectItems value="#{demandeurBeanNew.idTypeDiplome}"
+                               var="dom" itemLabel="Diplome" itemValue="#{dom.id}"/>
+                <p:ajax event="change" update="master1" listener="#{demandeurBeanNew.onDomaineChanged1}"
+                        process="@this"/>
+            </p:selectOneMenu>
+
+
+
+
+        </p:panelGrid>
+
+
+
+        <br></br>
+    </p:outputPanel>
+
+
+</h:body>
+</html>

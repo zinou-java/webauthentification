@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<f:view contentType="text/html" locale="#{localBean.localeCode}">
+    <h:head>
+        <style type="text/css">
+            .fa-stack[data-count]:after {
+                position: absolute;
+                right: 0%;
+                top: 1%;
+                content: attr(data-count);
+                font-size: 45%;
+                padding: .4em;
+                border-radius: 999px;
+                line-height: .75em;
+                color: #ffffff;
+                background: rgb(245, 63, 40);
+                text-align: center;
+                min-width: 2em;
+                font-weight: bold;
+
+            }
+
+            .ui-selectonemenu.form-control {
+                color: #555 !important;
+                display: block !important;
+                margin-bottom: 0 !important;
+                padding: 5px 10px !important;
+                background-color: #505050 !important;
+                border: 1px solid #505050 !important;
+            }
+
+            .radius-none {
+                border-radius: 0 !important;
+            }
+
+            .ui-selectonemenu.form-control .ui-selectonemenu-trigger {
+                top: 0;
+                right: 0;
+                width: 16px;
+                height: 100%;
+                padding: 0 5px;
+                cursor: pointer;
+                position: absolute;
+                margin: 0 !important;
+                border: none !important;
+                margin-top: 5px !important;
+                background: transparent !important;
+            }
+
+            .ui-selectonemenu .ui-selectonemenu-label {
+                width: 100%;
+                border: none;
+                display: block;
+                cursor: pointer;
+                text-align: justify;
+                background-color: #ffffff;
+                overflow: hidden;
+                margin-bottom: 0px;
+                white-space: nowrap;
+                font-weight: lighter;
+
+            }
+
+            .ui-selectonemenu .ui-selectonemenu-label.ui-inputfield.ui-corner-all {
+                text-overflow: ellipsis;
+                width: 100% !important;
+            }
+
+            .ui-inputfield {
+                margin: 0;
+                padding: 5px;
+                background: #ffffff;
+                font-weight: normal;
+                outline: medium none;
+                box-shadow: inset 0 0 0 #8f8f8f !important;
+                -webkit-box-shadow: inset 0 0 0 #8f8f8f !important;
+            }
+
+            .container-fluid.label {
+                display: block;
+                color: #e7e7e7;
+                font-size: 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+                padding-left: 87px;
+                text-align: left;
+            }
+
+
+        </style>
+        <script type="javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-121540711-1"></script>
+        <script type="javascript">
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+            gtag('config', 'UA-121540711-1');
+        </script>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+            <title>Plateforme d'authentification</title>
+            <link rel="shortcut icon" type="image/x-icon"
+                  href="#{facesContext.externalContext.request.contextPath}/resources/images/favicon-GRH.ico"
+            />
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/css/bootstrap-tour-standalone.min.css"
+                  rel="stylesheet"></link>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css" rel="stylesheet "></link>
+            <!-- Add IntroJs styles -->
+        </f:facet>
+
+        <f:facet name="middle">
+            <h:outputStylesheet name="css/bootstrap.min.css"/>
+            <h:outputStylesheet name="css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/progres-production.css"/>
+            <h:outputStylesheet name="css/progres-production-extension.css"/>
+
+            <!-- <h:outputStylesheet name="css/jquery.ui.css" />-->
+        </f:facet>
+
+        <f:facet name="last">
+        </f:facet>
+
+    </h:head>
+    <h:body onLoad="showDialog();" styleClass="progres-style-2">
+
+
+        <header id="header">
+            <div id="logo-group">
+
+                <!-- PLACE YOUR LOGO HERE -->
+
+                <span id="logo"> <a href="#"><img
+                        src="#{facesContext.externalContext.request.contextPath}/resources/images/logo2.png"
+                        alt="Progres"/> </a>
+			</span>
+
+
+            </div>
+
+            <h:form>
+            <div id="project-context"  style="width: 60%;text-align: center">
+
+				<span class="label">
+					<p:row rendered="#{localBean.locale=='ar_dz'}">
+
+                        <p:outputLabel value="#{projet.application_mesrs_name}"
+
+                                       style="font-size: 18px;"
+                                       styleClass="pull-right"/>
+
+						<p:outputLabel value="#{projet.application_name} "
+                                       style="font-size: 18px;"
+                                        styleClass="pull-left"/>
+					</p:row>
+                <p:row rendered="#{localBean.locale!='ar_dz'}">
+                    <p:outputLabel value="#{projet.application_mesrs_name}"
+
+                                   style="font-size: 14px"/>
+                    <br/>
+                    <p:outputLabel value="#{projet.application_name}" styleClass="pull-left "
+                                   style="font-size: 14px"
+                    />
+
+                </p:row>
+            </span>
+
+                <!-- end dropdown-menu-->
+            </div>
+
+            <!-- end projects dropdown -->
+            <!-- pulled right: nav area -->
+
+            <div class="pull-right">
+                <p:row rendered="#{loginBean.compte ne null}">
+                    <ul class="nav navbar-nav pull-right panel-menu">
+
+                        <li class="dropdown"><a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+
+
+                            <!--<i class="fa fa-bell-o" style="font-size: 30px; float:left ; color: white ; position: center" >-->
+                            <!--</i>-->
+
+                            <div class="user-mini pull-right">
+										<span class="welcome">
+											<p:outputLabel value="   "/>
+											<h:outputText
+                                                    value=" #{  loginBean.demandeur.nomLatin} #{loginBean.demandeur.prenomLatin}"/>
+                                                                <i class="fa fa-sign-out" style="font-size:15px"></i>
+
+									</span>
+                            </div>
+                        </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><p:commandLink class="fa fa-sign-out"
+                                                   value="      #{projet.menu_avatar_item3}"
+                                                   action="#{loginBean.logout()}">
+                                    <a> </a>
+                                </p:commandLink></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <div class="dropdown" style="float: right; padding: 6px ">
+
+						<span title="#{projet.menu_notification}" class="fa-stack fa-5x has-badge "
+                              style="font-size: 20px;" data-count="#{notificationBean.notificationNonLu.size()}">
+									<i class="fa fa-circle fa-stack-2x" style="color:#186ba0;" id="notification"></i>
+
+							<a href="#{facesContext.externalContext.request.contextPath}/pages/notification/notification.xhtml"
+                               onclick="return true;" role="button" style="float: left" aria-expanded="true">
+									<i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+
+						</a>
+
+					</span>
+
+
+                    </div>
+                    <p:tooltip escaped="false" globalSelector="a,:input,:button,span" position="bottom"/>
+                </p:row>
+
+
+            </div>
+
+
+            <div class="pull-right">
+                <p:row style="background-color:red">
+                    <br></br>
+
+                    <ul class="nav navbar-nav pull-right panel-menu">
+
+                        <li class="dropdown"><p:selectOneMenu styleClass="form-control radius-none"
+
+                                                              style="margin-top:-15px; background-color: #505050;"
+                                                              panelStyleClass="panel"
+                                                              value="#{localBean.localeCode}"
+                                                              onstart="PF('page').block()"
+                                                              onsuccess="PF('page').unblock()"
+                                                              valueChangeListener="#{localBean.changeLang}"
+                                                              onchange="submit()">
+
+                            <f:selectItems value="#{localBean.langue}"/>
+                            <p:column>
+                                <p:button id="iconButton" icon="fa fa-fw fa-user-plus"/>
+                            </p:column>
+                            <p:column>
+
+                                <p:outputLabel value="#{ic}" styleClass="color-white"
+                                               style="font-family: Times New roman;font-size: 18px;font-weight:bold"/>
+                            </p:column>
+                        </p:selectOneMenu></li>
+                        <br></br>
+                    </ul>
+
+                    <br></br>
+                </p:row>
+
+            </div>
+
+
+        </h:form> <!-- end pulled right: nav area --> </header>
+
+        <!-- END HEADER -->
+
+        <!-- Left panel : Navigation area -->
+        <aside id="left-panel"><h:form id="menuForm">
+            <nav dir="#{localBean.dir}">
+                <ul>
+                    <p:row rendered="true}">
+                        <li class=""><a
+                                href="#{facesContext.externalContext.request.contextPath}/pages/index.xhtml"
+                                title="#{projet.menu_item1}"><i
+                                class="fa fa-lg fa-fw fa-home fa-1x"></i> <span
+                                class="menu-item-parent">#{projet.menu_item1}</span></a></li>
+                    </p:row>
+                    <p:row rendered="true">
+                        <li class=""><a
+                                href="#{facesContext.externalContext.request.contextPath}/pages/index.xhtml"
+                                title="#{projet.menu_item1}"><i
+                                class="fa fa-lg fa-fw fa-home fa-1x"></i> <span
+                                class="menu-item-parent">#{projet.menu_item1}</span></a></li>
+                    </p:row>
+                    <p:row rendered="#{loginBean.compte eq null}">
+                        <li class=""><a
+                                href="#{facesContext.externalContext.request.contextPath}/pages/inscription/Inscription.xhtml"
+                                title="#{projet.menu_item5}"><i
+                                class="fa fa-lg fa-fw fa-newspaper-o fa-1x"></i> <span
+                                class="menu-item-parent">#{projet.menu_item5}</span></a></li>
+                    </p:row>
+                    <p:row rendered="#{loginBean.compte ne null}">
+                        <li class=""><a
+                                href="#{facesContext.externalContext.request.contextPath}/pages/editInfosPersonnelDemandeur.xhtml"
+                                title="#{projet.menu_mon_dossier}"><i
+                                class="fa fa-lg fa-fw fa-newspaper-o fa-1x"></i> <span
+                                class="menu-item-parent">#{projet.menu_mon_dossier}</span></a></li>
+                    </p:row>
+                    <p:row>
+                        <li class=""><a
+                                href="#{facesContext.externalContext.request.contextPath}/pages/procedure/procedures.xhtml"
+                                title="#{projet.menu_item2}"><i
+                                class="fa fa-lg fa-fw fa-sort-alpha-asc fa-1x"></i> <span
+                                class="menu-item-parent">#{projet.menu_item2}</span></a></li>
+                    </p:row>
+
+
+                    <p:row rendered="#{loginBean.compte ne null} ">
+                        <li class="">
+                            <a
+                                    href="#{facesContext.externalContext.request.contextPath}/pages/consultEtatDemande.xhtml"
+                                    title="#{projet.menu_item10}"><i
+                                    class="fa fa-lg fa-fw fa-align-justify fa-1x"></i> <span
+                                    class="menu-item-parent">#{projet.menu_item10}</span></a></li>
+                    </p:row>
+                    <p:row rendered="#{loginBean.compte ne null}">
+                        <li class=""><a
+                                href="#{facesContext.externalContext.request.contextPath}/pages/notification/notification.xhtml"
+                                title="#{projet.menu_avatar_item2}"><i class="fa fa-lg fa-fw fa-bell fa-1x"></i> <span
+                                class="menu-item-parent">#{projet.menu_notification}
+					</span><span class="badge badge-danger"> #{notificationBean.notificationNonLu.size()}</span></a>
+                        </li>
+                    </p:row>
+                    <p:row>
+                        <li class=""><a
+                                href="#{facesContext.externalContext.request.contextPath}/pages/contact/contact.xhtml"
+                                title="#{projet.menu_item6}"><i
+                                class="fa fa-lg fa-fw  fa-credit-card fa-1x"></i> <span
+                                class="menu-item-parent">#{projet.menu_item6}</span></a></li>
+                    </p:row>
+
+
+                    <!-- a supprimer
+                        <ui:include src="menu_dev.xhtml" />
+                         -->
+                </ul>
+            </nav>
+        </h:form> <!-- 		<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i>
+		</span>  --> </aside>
+        <!-- END NAVIGATION -->
+
+        <!-- MAIN PANEL -->
+        <div id="main" role="main" dir="#{localBean.dir}">
+            <!-- RIBBON -->
+
+
+            <ui:insert name="pageTitleContent"></ui:insert>
+
+            <!-- end breadcrumb -->
+
+            <!-- END RIBBON -->
+
+            <!-- MAIN CONTENT -->
+            <pe:blockUI widgetVar="page">
+                <h1>
+                    <i class="fa fa-spinner fa-spin"></i>
+                </h1>
+            </pe:blockUI>
+
+            <p:growl id="growlGlobal" showDetail="true" autoUpdate="true"
+                     showSummary="false" closable="true" life="5000"/>
+
+            <pe:blockUI target="content" widgetVar="content">
+                <i class="fa fa-spinner fa-spin"></i>
+            </pe:blockUI>
+            <p:outputPanel id="content" gutter="0">
+                <!-- style="font-size:#{sessionBean.fontSize}px" -->
+
+
+                <ui:insert name="content"></ui:insert>
+
+            </p:outputPanel>
+            <!-- END MAIN CONTENT -->
+
+        </div>
+
+        <ui:include src="../conditions.xhtml"></ui:include>
+
+
+        <!--[if IE 7]>
+        <h1>Votre navigateur n'est pas à jour, veuillez mettre à jour votre navigateur en allant à www.microsoft.com/download</h1>
+        <![endif]-->
+        <script type="text/javascript"
+                src="#{facesContext.externalContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript"
+                src="#{facesContext.externalContext.request.contextPath}/resources/js/pace.min.js"></script>
+        <script type="text/javascript"
+                src="#{facesContext.externalContext.request.contextPath}/resources/js/jarvis.widget.min.js"></script>
+
+        <script type="text/javascript"
+                src="#{facesContext.externalContext.request.contextPath}/resources/js/notification/notification.min.js"></script>
+        <script type="text/javascript"
+                src="#{facesContext.externalContext.request.contextPath}/resources/js/app.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/js/bootstrap-tour-standalone.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
+
+
+    </h:body>
+</f:view>
+</html>

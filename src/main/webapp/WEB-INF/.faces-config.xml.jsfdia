@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#bachelier#dossier.xhtml"
+  PATH="/pages/bachelier/dossier.xhtml" SHAPE="256,289,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#bachelier#dossier.xhtml:0" NAME="item"
+   PATH="/pages/bachelier/dossier.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toetat::#pages#etat#etat.xhtml"
+    NAME="output" PATH="/pages/etat/etat.xhtml"
+    TARGET="rules:#pages#etat#etat.xhtml" TITLE="toetat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#bachelier#edit.xhtml"
+  PATH="/pages/bachelier/edit.xhtml" SHAPE="272,145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#bachelier#edit.xhtml:0" NAME="item"
+   PATH="/pages/bachelier/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toetat::#pages#etat#etat.xhtml"
+    NAME="output" PATH="/pages/etat/etat.xhtml"
+    TARGET="rules:#pages#etat#etat.xhtml" TITLE="toetat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#bachelier#voeux.xhtml"
+  PATH="/pages/bachelier/voeux.xhtml" SHAPE="272,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#bachelier#voeux.xhtml:0" NAME="item"
+   PATH="/pages/bachelier/voeux.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toetat::#pages#etat#etat.xhtml"
+    NAME="output" PATH="/pages/etat/etat.xhtml"
+    TARGET="rules:#pages#etat#etat.xhtml" TITLE="toetat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#pages#bachelier#voeux.xhtml:1" NAME="item1"
+   PATH="/pages/bachelier/voeux.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toetat::#pages#etat#etat.xhtml"
+    NAME="output" PATH="/pages/etat/etat.xhtml"
+    TARGET="rules:#pages#etat#etat.xhtml" TITLE="toetat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,417,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toacceuill::index.xhtml" NAME="output"
+    PATH="index.xhtml" TARGET="rules:index.xhtml" TITLE="toacceuill" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="toetat::#pages#etat#etat.xhtml"
+    NAME="output1" PATH="/pages/etat/etat.xhtml"
+    TARGET="rules:#pages#etat#etat.xhtml" TITLE="toetat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:index.xhtml" PATH="index.xhtml"
+  SHAPE="240,433,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#traitement#decisionEquiv.xhtml"
+  PATH="/pages/traitement/decisionEquiv.xhtml" SHAPE="240,577,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#traitement#detailBachelier.xhtml"
+  PATH="/pages/traitement/detailBachelier.xhtml" SHAPE="32,673,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#traitement#detailBachelier.xhtml:0"
+   NAME="item" PATH="/pages/traitement/detailBachelier.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="toequiv::#pages#traitement#decisionEquiv.xhtml" NAME="output"
+    PATH="/pages/traitement/decisionEquiv.xhtml"
+    TARGET="rules:#pages#traitement#decisionEquiv.xhtml" TITLE="toequiv" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="240,945,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#offreformation#licence.xhtml"
+  PATH="/pages/offreformation/licence.xhtml" SHAPE="32,1041,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#offreformation#licence.xhtml:0"
+   NAME="item" PATH="/pages/offreformation/licence.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="todomaine::#pages#offreformation#domaine.xhtml" NAME="output"
+    PATH="/pages/offreformation/domaine.xhtml"
+    TARGET="rules:#pages#offreformation#domaine.xhtml" TITLE="todomaine" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toregion::#pages#offreformation#region.xhtml" NAME="output1"
+    PATH="/pages/offreformation/region.xhtml"
+    TARGET="rules:#pages#offreformation#region.xhtml" TITLE="toregion" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#offreformation#domaine.xhtml"
+  PATH="/pages/offreformation/domaine.xhtml" SHAPE="240,1169,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#offreformation#region.xhtml"
+  PATH="/pages/offreformation/region.xhtml" SHAPE="256,1169,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#etat#etat.xhtml"
+  PATH="/pages/etat/etat.xhtml" SHAPE="96,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#etat#etat.xhtml:0" NAME="item"
+   PATH="/pages/etat/etat.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toinfo::#pages#bachelier#edit.xhtml"
+    NAME="output" PATH="/pages/bachelier/edit.xhtml"
+    TARGET="rules:#pages#bachelier#edit.xhtml" TITLE="toinfo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="todossier::#pages#bachelier#dossier.xhtml"
+    NAME="output1" PATH="/pages/bachelier/dossier.xhtml"
+    TARGET="rules:#pages#bachelier#dossier.xhtml" TITLE="todossier" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="tovouex::#pages#bachelier#voeux.xhtml"
+    NAME="output2" PATH="/pages/bachelier/voeux.xhtml"
+    TARGET="rules:#pages#bachelier#voeux.xhtml" TITLE="tovouex" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tonotification::#pages#notification#notification.xhtml"
+    NAME="output3" PATH="/pages/notification/notification.xhtml"
+    TARGET="rules:#pages#notification#notification.xhtml"
+    TITLE="tonotification" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#inscription#formulaireInscrip.xhtml"
+  PATH="/pages/inscription/formulaireInscrip.xhtml" SHAPE="32,1041,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#inscription#formulaireInscrip.xhtml:0"
+   NAME="item" PATH="/pages/inscription/formulaireInscrip.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toaccueil::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="toaccueil" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#notification#notification.xhtml"
+  PATH="/pages/notification/notification.xhtml" SHAPE="240,1425,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

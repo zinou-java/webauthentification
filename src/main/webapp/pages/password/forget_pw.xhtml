@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+
+</h:head>
+<h:body>
+
+    <ui:composition template="../template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <pe:blockUI target="container" widgetVar="uiBlock">
+                <i class="fa fa-spinner fa-spin"></i>
+            </pe:blockUI>
+            <p:outputPanel id="change">
+                <p:row id="container" rendered="#{!passwordChangeBean.showMessageChanged}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+
+                                            <div class="text-center">
+                                                <br/>
+
+                                                <div class="panel-body">
+                                                    <h:form role="form" class="sign_up_form">
+                                                    <fieldset>
+                                                        <div class="col-xs-12">
+                                                            <img src="../../resources/images/lock-icon.png" alt="password_icn" class="center"></img>
+                                                        </div>
+                                                        <h2 class="sign_up_title" style="color: red">#{projet.msg_forget}</h2>
+                                                        <h3>#{projet.msg_forget1}</h3>
+                                                        <div class="form-group">
+                                                            <p:inputText value="#{passwordChangeBean.email}"
+                                                                         type="email" name="email" id="email" class="form-control input-lg"
+                                                                         placeholder="#{projet.infos_perso_mail}" tabindex="4"
+                                                                         validatorMessage="#{required.msg_mail_valide}">
+                                                                <f:validateRegex
+                                                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+
+                                                            </p:inputText>
+
+                                                        </div>
+
+                                                        <br></br>
+                                                        <div class="row">
+                                                            <p:outputLabel value=""/>
+                                                            <p:captcha label="Captcha" language="fr" />
+                                                        </div>
+                                                        <br></br>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <p:commandLink href="#" actionListener="#{passwordChangeBean.resetPassword}"
+                                                                               update="change"
+                                                                               onstart="PF('uiBlock').block()"
+                                                                               onsuccess="PF('uiBlock').unblock()"
+                                                                               class="btn btn-primary btn-block btn-lg"
+                                                                               value="#{projet.btn_envoyer}"></p:commandLink>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                    </h:form>
+
+
+                                            </div>
+                                        </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </p:row>
+
+            </p:outputPanel>
+
+            <style>
+
+                .sign_up_title {
+                    text-align: center;
+                    margin-bottom: 5%;
+                }
+
+                .sign_in_but {
+                    border-radius: 45%;
+                    margin-left: 5px
+                }
+
+                .sign_up_form {
+                    margin-bottom: 30%;
+                }
+
+                .sign_up_form input {
+                    border-radius: 0px;
+                }
+
+                p {
+                    text-align: left;
+                }
+
+
+            </style>
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>

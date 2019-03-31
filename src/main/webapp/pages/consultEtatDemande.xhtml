@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+
+<h:body>
+    <ui:composition template="template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <style>
+                .red {
+                    background-color: rgba(255, 98, 80, 0.94) !important;
+                    background-image: none;
+                }
+
+                .green {
+                    background-color: rgba(34, 255, 84, 0.41) !important;
+                    background-image: none;
+                }
+
+                .normal {
+                    background-color: #FFFFFF !important;
+                    background-image: none;
+                }
+            </style>
+
+            <h:form id="editVoeuxCandidatForm">
+                <!--<ui:include src="steps.xhtml"></ui:include>
+                <br></br>-->
+                <p class="text-danger">
+                    <strong>Consulter l'état de votre demande d'inscription en première année master</strong>
+                </p>
+
+                <p:outputPanel style="width:100% !important">
+
+
+                    <p:dataTable value="#{candidatVoeuxBean.voeuxCandidats}"
+                                 id="voeuxTable"
+                                 selectionMode="single"
+                                 rowKey="#{voeux.id}"
+                                 selection="#{candidatVoeuxBean.voeuxCandidat1}"
+                                 var="voeux" emptyMessage="fiche de voeux vide"
+                                 Style="#{voeux.est_accordee eq true ? 'background-color : green' : voeux.est_accordee eq false ? 'red':voeux.est_accordee eq null ? 'normal':'' }">
+                        <f:facet name="header">
+
+                        </f:facet>
+                        <p:column headerText="N" width="5%" sortBy="#{voeux.rang}">
+                            <p:outputLabel value="#{voeux.rang}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Etablissement">
+                            <p:outputLabel
+                                    value="#{voeux.formation.refEtablissement.llEtablissementLatin}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Domaine">
+                            <p:outputLabel value="#{voeux.formation.domaineLmd.llDomaine}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Master">
+                            <p:outputLabel value="#{voeux.formation.llSpecialite}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Etat de ma demande" >
+                            <p:outputLabel
+                                    value="#{voeux.est_accordee == null ? 'Demande en cours' : voeux.est_accordee eq true ? 'Demande Acceptée' : voeux.est_accordee eq false ? 'Demande Rejetée' : ''}"
+                                    Style="#{voeux.est_accordee eq true ? 'color : green' : voeux.est_accordee eq false ? 'color : red':voeux.est_accordee eq null ? 'color : normal':'' }">
+
+                            </p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Confirmation" width="23%">
+
+                            <p:commandButton value="Confirmation" id="withIcon"
+                                             icon="ui-icon-check"
+                                             actionListener="#{candidatVoeuxBean.confirmeVoeux(voeux)}"
+                                             disabled="#{voeux.estConfirmee ne null}"
+                                             rendered="#{(voeux.est_accordee eq true)}">
+                                <p:confirm header="Confirmation" message="voulez vous confirmer votre choix ?"
+                                           icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes"
+                                                 icon="ui-icon-check"/>
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no"
+                                                 icon="ui-icon-close"/>
+                            </p:confirmDialog>
+
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                    <p:commandButton actionListener="#{confirmationBean.imprimerVoeux()}"
+                                     value="Imprimer mon affectaion"
+                                     rendered="false"
+                                     ajax="false"
+                                     icon="fa fa-print"/>
+                    <!--rendered="#{!(voeux.estAccordee eq true) or !(voeux.estConfirmee eq null) }"-->
+
+
+                    <br></br>
+
+                    <br></br>
+
+                    <p  style="font-size: 16px;background-color: #ff4438;">
+                        <strong > A la proclamation des résultats, vous devez confirmer un seul voeu parmi ceux accéptés. Les résultats sont définitifs et aucun recours n'est permis.</strong>
+                    </p>
+                </p:outputPanel>
+
+                <br/>
+
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+
+</html>

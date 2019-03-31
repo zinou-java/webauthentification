@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition template="template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <h:form id="editInfoCandidat" enctype="multipart/form-data">
+                <ui:include src="steps.xhtml"></ui:include>
+                <br></br>
+                <div class="alert alert-info">
+                    <strong>#{projet.inscription_etape_edit_compte}</strong>
+                </div>
+                <p:outputPanel id="editinfo"
+                               rendered="true">
+
+
+                    <p:outputPanel>
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <p:outputLabel  value="#{projet.compte_identifient}" ></p:outputLabel>
+                            <p:outputLabel value="#{demandeurCompteBean.compte.login}"></p:outputLabel>
+                            <p:outputLabel value="#{projet.compte_ancien_password}"></p:outputLabel>
+                            <p:password value="#{demandeurCompteBean.anncienPwd}"
+                                        style="width: 100% !important" required="true"
+                                        requiredMessage="#{required.msg_confime_pw}"/>
+                            <p:outputLabel value="#{projet.compte_new_password}"></p:outputLabel>
+                            <p:password value="#{demandeurCompteBean.nouveauPwd}"
+                                        style="width: 100% !important" required="true"
+                                        requiredMessage="#{required.msg_pw}" feedback="true"
+                                        validatorMessage="#{projet.motpass_message}"
+                                        promptLabel="#{projet.motpass_message}"
+                                        weakLabel="#{projet.motpass_weak}"
+                                        goodLabel="#{projet.motpass_good}"
+                                        strongLabel="#{projet.motpass_strong}">
+                                <f:validateLength minimum="8"></f:validateLength>
+                            </p:password>
+                            <p:outputLabel value="#{projet.compte_confirmation_password}"></p:outputLabel>
+                            <p:password value="#{demandeurCompteBean.confirmationPwd}"
+                                        style="width: 100% !important" required="true"
+                                        requiredMessage="#{required.msg_confime_pw}"/>
+
+
+                        </p:panelGrid>
+                        <p:spacer></p:spacer>
+
+                    </p:outputPanel>
+
+
+                    <p:panelGrid columns="3" style="width:100%">
+                        <f:facet name="header">
+                            <p:commandButton value="#{projet.botton_save}"
+                                             action="#{demandeurCompteBean.save()}"
+                                             icon="fa fa-fw fa-save"
+                                             onstart="PF('content').block()"
+                                             onsuccess="PF('content').unblock()"
+                                             style="font-weight: normal;  color: #000 ;
+						background-color: whitesmoke;
+						border-color: #0aa66e;  border-left-width:7px; "
+                                             update="editInfoCandidat" ajax="true"/>
+
+                            <p:commandButton action="toetat" value="#{projet.btn_suivant}"
+                                             styleClass="pull-right" immediate="true"
+                                             actionListener="#{demandeurCompteBean.next()}"
+                                             style="font-weight: normal;  color: #000 ;background-color: whitesmoke;border-color: #0aa66e;  border-left-width:7px; "
+                                             icon="fa fa-fw fa-caret-right"/>
+
+                        </f:facet>
+
+                    </p:panelGrid>
+
+                </p:outputPanel>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

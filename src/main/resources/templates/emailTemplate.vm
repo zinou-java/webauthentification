@@ -1,0 +1,24 @@
+Cher ${nom} ${prenom} <br>
+
+Votre compte  sur la plateforme de demande d'authenitification est créé  , pour activer votre compte prière de cliquer sur le lien ci-dessous.
+<br>
+<a href="${activationLink}${token}">Activer Mon compte</a>
+<br>
+En cas où le  lien ne fonctionne pas, copier et coller ce lien sur votre navigateur:<br>
+${activationLink}${token}
+<br></<br>
+<p style="color:red;"><strong>
+Informations sur le compte:</strong>
+</p>
+
+Nom d'utilisateur (Mail):<strong> ${mail}</strong>
+<br></<br>
+Mot de passe:<strong>  ${password}</strong>
+
+
+<br>
+En cas de problème de connexion ou de besoin d'un complément d'information veuillez contacter l'établissement d'enseignement supérieur le plus proche de vous.
+<br>
+
+prière de ne pas répondre à cet email
+

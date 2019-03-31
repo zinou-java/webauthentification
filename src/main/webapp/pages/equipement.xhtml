@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head/>
+<h:body>
+    <ui:composition template="/pages/template/fullPageLayout.xhtml">
+        <ui:define name="content">
+<h:form>
+            <p:dataTable var="outils" value="#{equipementBean.equipements}"
+                         selectionMode="single" selection="#{equipementBean.equipement}" rowKey="#{outils.id}">
+
+
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{outils.id}"/>
+                </p:column>
+
+                <p:column headerText="L'&eacute;quipement">
+                    <h:outputText value="#{outils.labelEquipement}"/>
+                </p:column>
+
+                <p:column headerText="Supprimer">
+                    <p:commandButton icon="pi pi-search" value="Supprimer"
+                                     process="@this" update="@all"
+                                     actionListener="#{equipementBean.remove(outils)}"/>
+
+                </p:column>
+
+            </p:dataTable>
+
+                <p:panelGrid columns="1">
+
+                    Nom de l'&eacute;quipement
+                    <p:inputText value="#{equipementBean.equipement.labelEquipement}"/>
+
+                </p:panelGrid>
+
+                     <p:commandButton icon="pi pi-search" value="Ajouter"
+                                      process="@this" update="@all"
+                                      actionListener="#{equipementBean.add}"/>
+
+</h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

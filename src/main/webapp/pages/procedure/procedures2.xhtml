@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:head />
+<h:body>
+	<ui:composition template="../template/fullPageLayout.xhtml">
+		<ui:define name="content">
+			<div style="text-align: justify;">
+				<h2>#{procedures.procedures_titre}</h2>
+				<ul>
+				<p:outputLabel value="	#{procedures.procedures_etudiant}"
+					style="color :green;font-size: 15px ;font-weight : bold" />
+
+					<li>
+				<p:outputLabel value="#{procedures.procedures_etudiant_etap1}"
+							   style="color :red;font-size: 15px ;font-weight : bold" /></li>
+					<li> #{procedures.procedures_etudiant_etap1_a} </li>
+					<li>#{procedures.procedures_etudiant_etap1_b} </li>
+					<li>#{procedures.procedures_etudiant_etap1_c} </li>
+				</ul>
+				<p:outputLabel value=" #{procedures.procedures_etudiant_etape2}"
+					style="color :red;font-size: 15px ;font-weight : bold" />
+
+				<br /> #{procedures.procedures_etudiant_etap2_a}
+				<br /> #{procedures.procedures_etudiant_etap2_b}
+				<p:outputLabel value="#{procedures.procedures_etudiant_etape3}"
+					style="color :red;font-size: 15px ;font-weight : bold" />
+				<br /> #{procedures.procedures_etudiant_etape3_a} <br />
+				#{procedures.procedures_etudiant_etape3_b} <br />
+				<p:outputLabel value=" #{procedures.procedures_etudiant_etape3_f1}"
+					style="color :blue;font-size: 13px ;font-weight : bold" />
+				<br /> #{procedures.procedures_etudiant_etape3_f1_a} <br />
+				#{procedures.procedures_etudiant_etape3_f1_b} <br />
+				#{procedures.procedures_etudiant_etape3_f1_c}<br />
+
+				<p:outputLabel value="#{procedures.procedures_etudiant_etape3_f2}"
+					style="color :blue;font-size: 13px ;font-weight : bold" />
+				<br /> #{procedures.procedures_etudiant_etape3_f2_a} <br />
+				#{procedures.procedures_etudiant_etape3_f2_b} <br />
+				#{procedures.procedures_etudiant_etape3_f2_c} <br />
+				#{procedures.procedures_etudiant_etape3_f2_d} <br />
+				#{procedures.procedures_etudiant_etape3_f2_e} <br />
+				#{procedures.procedures_etudiant_etape3_f2_f} <br />
+
+				<p:outputLabel value="#{procedures.procedures_etudiant_etape3_f3}"
+					style="color :blue;font-size: 13px ;font-weight : bold" />
+				<br /> #{procedures.procedures_etudiant_etape3_f3_a}<br />
+				#{procedures.procedures_etudiant_etape3_f3_b}<br />
+				#{procedures.procedures_etudiant_etape3_f3_c}<br /> <br />
+				<p:outputLabel value="#{procedures.procedures_etudiant_etape4}"
+					style="color :red;font-size: 15px ;font-weight : bold" />
+				<br /> #{procedures.procedures_etudiant_etape4_a} <br />
+				#{procedures.procedures_etudiant_etape4_b} <br />
+				#{procedures.procedures_etudiant_etape4_c} <br />
+				#{procedures.procedures_etudiant_etape4_d} <br />
+
+
+			</div>
+
+			<div style="text-align: justify;">
+				<br />
+				<p:outputLabel value="#{procedures.procedures_admin_equiv}"
+					style="color :green;font-size: 15px ;font-weight : bold" />
+				<br />
+				
+				<p:outputLabel value="#{procedures.procedures_admin_equiv_etape1}"
+					style="color :red;font-size: 15px ;font-weight : bold" />
+				<br /> #{procedures.procedures_admin_equiv_etape1_a} 
+				
+				<br /> #{procedures.procedures_admin_equiv_etape2_a} <br />
+				
+				<p:outputLabel value="	#{procedures.procedures_admin_dgefs}"
+					style="color :red;font-size: 15px ;font-weight : bold" />
+				<br />
+				
+				#{procedures.procedures_admin_dgefs_etape3_a} <br />
+				
+				<p:outputLabel value="#{procedures.procedures_admin_coop}"
+					style="color :red;font-size: 15px ;font-weight : bold" />
+				<br />
+				
+				#{procedures.procedures_admin_coop_etap1_a}<br />
+
+			</div>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

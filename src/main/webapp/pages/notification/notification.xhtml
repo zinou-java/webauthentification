@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head />
+<h:body>
+	<ui:composition template="../template/fullPageLayout.xhtml">
+		<ui:define name="content">
+
+			<p:outputPanel id="panel">
+
+			<h:form id="form">
+				<div class="alert alert-info">
+					<strong>#{projet.msg_notification}</strong>
+				</div>
+				<p:growl id="growl" showDetail="true" sticky="true" life="10000"  />
+				<p:remoteCommand id="rcomerror" name="showError" process="@this"  autoRun="true"
+				actionListener="#{notificationBean.info()}" />
+
+<br></br>
+				<p:dataTable value="#{notificationBean.allNotifications}" var="notif"
+					paginator="true" rows="5"
+					rowsPerPageTemplate="5,10,15,20,30"
+							 paginatorPosition="bottom"
+					rowIndexVar="rowIndex" emptyMessage="liste vide">
+
+						<f:facet name="header"></f:facet>
+					<p:column exportable="false" headerText="#{projet.table_N}" style="width:30px">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="#{projet.msg_notification3}">
+						<p:outputLabel value="#{notif.date}"/>
+					</p:column>
+					<p:column headerText="#{projet.msg_notification2}">
+					<p:outputLabel value="#{notif.titre}"/>
+					</p:column>
+
+
+					<p:column headerText="#{projet.msg_notification1}">
+						<p:outputLabel value="#{notif.text}"/>
+					</p:column>
+
+				</p:dataTable>
+
+			</h:form>
+			</p:outputPanel>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

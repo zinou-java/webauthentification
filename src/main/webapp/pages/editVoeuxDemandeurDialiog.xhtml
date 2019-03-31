@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+
+
+    <p:outputPanel id="formCrud" rendered="#{demandeurBeans.crud || candidatVoeuxBean.isNew()}">
+        <p:panelGrid columns="2" cellpadding="0" style="width:100%" columnClasses="ui-grid-col-2,ui-grid-col-6">
+
+            <p:outputLabel value="Etablissement"></p:outputLabel>
+            <p:selectOneMenu value="#{candidatVoeuxBean.idEtablissement1}" id="etab1"
+                             filter="true" filterMatchMode="contains"
+                             disabled="#{candidatVoeuxBean.demandeur.voeuxValide}"
+                             autoWidth="false"
+                             style="width: 100% !important">
+                <f:selectItem itemLabel="Etablissement"></f:selectItem>
+                <f:selectItems value="#{globalBean.refEtablissements1}"
+                               var="etab" itemLabel="#{etab.llEtablissementLatin}"
+                               itemValue="#{etab.getId()}"/>
+                <p:ajax event="change" update="dom1" listener="#{candidatVoeuxBean.onEtablissementChanged1}"
+                        process="@all"/>
+            </p:selectOneMenu>
+
+            <p:outputLabel value="Domaine"></p:outputLabel>
+            <p:selectOneMenu value="#{candidatVoeuxBean.idDomaine1}" id="dom1"
+                             filter="true" filterMatchMode="contains"
+                             disabled="#{candidatVoeuxBean.demandeur.voeuxValide}"
+                             autoWidth="false"
+                             style="width: 100% !important">
+                <f:selectItem itemLabel="Domaine"/>
+                <f:selectItems value="#{candidatVoeuxBean.domaineLmds1}"
+                               var="dom" itemLabel="#{dom.llDomaine}" itemValue="#{dom.id}"/>
+                <p:ajax event="change" update="master1" listener="#{candidatVoeuxBean.onDomaineChanged1}"
+                        process="@this"/>
+            </p:selectOneMenu>
+            <p:outputLabel value="Master"></p:outputLabel>
+            <p:selectOneMenu value="#{candidatVoeuxBean.idFormation1}" id="master1"
+                             filter="true" filterMatchMode="contains"
+                             disabled="#{candidatVoeuxBean.demandeur.voeuxValide}"
+                             autoWidth="false"
+                             style="width: 100% !important">
+                <f:selectItem itemLabel="Master" itemValue="0"/>
+                <f:selectItems value="#{candidatVoeuxBean.formations1}"
+                               var="master" itemLabel="#{master.llSpecialite} (Nombre de places : #{master.nombrePlaceOuverte},  filière : #{master.llFiliere} )"
+                               itemValue="#{master.id}"/>
+                <p:ajax event="change" update="checkLicence dialog" listener="#{candidatVoeuxBean.onMaseterChanged}"
+                        process="@this"/>
+            </p:selectOneMenu>
+
+
+
+        </p:panelGrid>
+        <p:row rendered="#{candidatVoeuxBean.crud}">
+            <p:outputLabel styleClass="value" style="color: red;font-size: 16px" rendered="#{!candidatVoeuxBean.checkLicenceEligible()}"
+                           value="#{projet.message_licenceseligible_non_verifie} "></p:outputLabel>
+            <p:outputLabel styleClass="value" style="color: green;font-size: 16px" rendered="#{candidatVoeuxBean.checkLicenceEligible()}"
+                           value="#{projet.message_licenceseligible_verifie}"></p:outputLabel>
+            <br></br>
+            <p:commandLink value="Consulter la liste des licences éligibles" styleClass="value" onclick="PF('dialog').show()"></p:commandLink>
+        </p:row>
+        <p:outputPanel  id="checkLicence">
+        <p:row rendered="#{candidatVoeuxBean.isDisplayCheckLicence()}">
+            <p:outputLabel styleClass="value" style="color: red;font-size: 16px" rendered="#{!candidatVoeuxBean.checkLicenceEligible()}"
+                           value="#{projet.message_licenceseligible_non_verifie} "></p:outputLabel>
+            <p:outputLabel styleClass="value" style="color: green;font-size: 16px" rendered="#{candidatVoeuxBean.checkLicenceEligible()}"
+                           value="#{projet.message_licenceseligible_verifie}"></p:outputLabel>
+            <br></br>
+            <p:commandLink value="Consulter la liste des licences éligibles" styleClass="value" onclick="PF('dialog').show()"></p:commandLink>
+        </p:row>
+        </p:outputPanel>
+
+
+       <p:dialog widgetVar="dialog" width="700px" id="dialog">
+                   <p:dataTable value="#{candidatVoeuxBean.licencesLmds1}" multiViewState="true"
+                                var="licence">
+                       <p:column headerText="Licences éligibles">
+                           <h:outputText value="#{licence}" styleClass="red.ui-datatable"/>
+                       </p:column>
+                   </p:dataTable>
+
+
+       </p:dialog>
+        <br></br>
+    </p:outputPanel>
+
+
+</h:body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+
+<ui:composition template="/templates/fullPageLayout.xhtml">
+
+
+	<ui:define name="centerContent">
+
+		<style>
+			.error-actions {
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+			
+			.error-actions .btn {
+				margin-right: 10px;
+			}
+			
+			.page_erreur .number {
+				font-size: 150px;
+				color: #1da44a;
+				color: #d3ded7;
+				width: 320px;
+				margin: 50px 0 0 100px;
+				float: left;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			
+			.page_erreur .details {
+				font-family: Arial, Helvetica, sans-serif;
+				width: 500px;
+				margin: 120px 0 0 0;
+				float: left;
+			}
+			
+			.page_erreur .details .titre {
+				font-size: 24px;
+			}
+		</style>
+
+		<div class="page_erreur">
+			<div class="number">403</div>
+			<div class="details">
+				<p class="titre">Accès non autorisé</p>
+				<p>Vous n'êtes pas autorisé à accéder à ce contenu</p>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>
+</html>
+

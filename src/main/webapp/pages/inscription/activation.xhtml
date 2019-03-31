@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <ui:composition template="../template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <pe:blockUI target="container" widgetVar="uiBlock">
+                <i class="fa fa-spinner fa-spin"></i>
+            </pe:blockUI>
+            <p:outputPanel id="change">
+                <p:row id="container" rendered="#{activationBean.checkExisteToken()}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+
+                                <div class="text-center">
+                                    <br/>
+                                    <div class="panel-body">
+                                        <h:form role="form" class="sign_up_form">
+                                            <fieldset>
+                                                <div class="col-xs-12">
+                                                    <img src="../../resources/images/checked.png" alt="checked_icn"
+                                                         class="center"></img>
+                                                </div>
+                                                <p:spacer></p:spacer>
+                                                <h2 class="sign_up_title"
+                                                    style="color: #21ad4f">#{projet.activation_msg}</h2>
+
+                                                <br></br>
+                                            </fieldset>
+                                        </h:form>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </p:row>
+                <p:row id="container2" rendered="#{!activationBean.checkExisteToken()}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+
+                                <div class="text-center">
+                                    <br/>
+                                    <div class="panel-body">
+                                        <h:form role="form" class="sign_up_form">
+                                            <fieldset>
+                                                <div class="col-xs-12">
+                                                    <img src="../../resources/images/icons8.png" alt="checked_icn"
+                                                         class="center"></img>
+                                                </div>
+                                                <p:spacer></p:spacer>
+                                                <h2 class="sign_up_title"
+                                                    style="color: #ff0000">#{projet.activation_msg1}</h2>
+
+                                                <br></br>
+                                            </fieldset>
+                                        </h:form>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </p:row>
+
+            </p:outputPanel>
+
+            <style>
+
+                .sign_up_title {
+                    text-align: center;
+                    margin-bottom: 5%;
+                }
+
+                .sign_in_but {
+                    border-radius: 45%;
+                    margin-left: 5px
+                }
+
+                .sign_up_form {
+                    margin-bottom: 30%;
+                }
+
+                .sign_up_form input {
+                    border-radius: 0px;
+                }
+
+                p {
+                    text-align: left;
+                }
+
+
+            </style>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

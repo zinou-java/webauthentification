@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+    <ui:composition template="template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <h:form id="editDocumentCandidatForm">
+
+                <ui:include src="steps.xhtml"></ui:include>
+
+                <ul>
+                    <h5>
+                        <li><p class="text-danger"> Les fichiers à déposer doivent être en format PDF</p></li>
+                    </h5>
+                </ul>
+                <p:outputPanel>
+
+                    <h3 class="first">Demandes d'Authentification</h3>
+
+                    <p:spacer></p:spacer>
+
+                    <p:dataTable id="notes" var="doc" value="#{demandeurDocumentBean.documentsDemandeur}">
+                        <p:column headerText="Type de document">
+                            <h:outputText value="#{doc.libellePiece}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="est Obligatoire ?">
+                            <h:outputText value="#{doc.typePiece.obligatoire ? 'OUI' : 'NON'}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{projet.diplome_type_fichier}">
+
+                            <p:commandLink title="Télécharger le fichier" ajax="false"
+                                           rendered="#{doc.estFourni}" immediate="true"
+                                           actionListener="#{demandeurDocumentBean.prepareFileToDownload(doc)}">
+                                <p:graphicImage library="images" name="pdf.png"/>
+                                <p:fileDownload value="#{demandeurDocumentBean.document}"/>
+                            </p:commandLink>
+
+                            <p:fileUpload value="#{demandeurDocumentBean.uploadedFile}"
+                                          rendered="#{!demandeurDocumentBean.demandeur.docuementValide}"
+                                          fileUploadListener="#{demandeurDocumentBean.uploadDocument}"
+                                          mode="advanced" multiple="false" auto="true"
+                                          allowTypes="/(\.|\/)(pdf)$/"
+                                          sizeLimit="52428800"
+                                          update="@all"
+                                          label="Déposer le document"
+                                          onstart="PF('content').block()"
+                                          oncomplete="PF('content').unblock()"
+                                          onsuccess="PF('content').unblock()">
+                                <f:attribute name="type"
+                                             value="#{doc.id}"/>
+                            </p:fileUpload>
+                        </p:column>
+
+                        <!-- -->
+
+
+                    </p:dataTable>
+
+                    <br></br>
+
+
+                    <br/>
+                    <p:panelGrid columns="3" style="width:100%">
+                        <f:facet name="header">
+                            <p:commandButton action="toetat" value="Précédent"
+                                             styleClass="pull-left"
+                                             actionListener="#{demandeurDocumentBean.previews()}"
+                                             style="font-weight: normal;  color: #000 ;background-color: whitesmoke;border-color: #0aa66e;  border-left-width:7px; "
+                                             icon="fa fa-fw fa-caret-left"/>
+                            <p:commandButton value="#{projet.botton_save}"
+                                             rendered="#{!demandeurDocumentBean.demandeur.docuementValide}"
+                                             action="#{demandeurDocumentBean.save()}"
+                                             icon="fa fa-fw fa-save" onstart="PF('content').block()"
+                                             onsuccess="PF('content').unblock()"
+                                             style="font-weight: normal; color: #000 ;	background-color: whitesmoke;border-color: #0aa66e;  border-left-width:7px; "
+                                             update="editDocumentCandidatForm" ajax="true"/>
+
+                            <p:commandButton action="toetat" value="Suivant"
+                                             styleClass="pull-right"
+                                             onstart="PF('content').block()"
+                                             onsuccess="PF('content').unblock()"
+                                             actionListener="#{demandeurDocumentBean.next()}"
+                                             disabled="#{!demandeurDocumentBean.demandeur.docuementValide}"
+                                             style="font-weight: normal;  color: #000 ;background-color: whitesmoke;border-color: #0aa66e;  border-left-width:7px; "
+                                             icon="fa fa-fw fa-caret-right"/>
+                            <p:commandButton
+                                    value="#{demandeurDocumentBean.demandeur.docuementValide ? 'Annuller la validation' : 'Valider'}"
+                                    styleClass="pull-right"
+                                    action="#{demandeurDocumentBean.valider}"
+                                    icon="fa fa-fw fa-edit"
+                                    onstart="PF('content').block()"
+                                    onsuccess="PF('content').unblock()" update="@all"
+                                    ajax="true"
+                                    style="font-weight: normal;  color: #000 ;
+						background-color: whitesmoke;
+						border-color: #0aa66e;  border-left-width:7px; "/>
+
+                        </f:facet>
+                    </p:panelGrid>
+                    <br></br>
+
+
+                </p:outputPanel>
+
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+
+</html>

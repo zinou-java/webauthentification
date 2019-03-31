@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui">
+<br></br>
+
+<style type="text/css">
+
+
+    .bs-wizard > {margin-top: 40px;  direction: ltr !important;}
+    .bs-wizard > {border-bottom: solid 1px #e0e0e0; padding: 0 0 10px 0; direction: ltr !important;}
+    .bs-wizard > .col-xs-3  {width: 25% !important; direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step {padding: 0; position: relative; direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step + .bs-wizard-step {}
+    .bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; font-size: 16px; margin-bottom: 5px; direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step .bs-wizard-info {color: #595959; font-size: 14px; direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #74c374; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%; direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 14px; height: 14px; background: #21ad4f; border-radius: 50px; position: absolute; top: 8px; left: 8px; direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none;background: #74c374;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step.complete > .progress > .progress-bar {width:100%;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step.active > .progress > .progress-bar {width:50%;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step:first-child.active > .progress > .progress-bar {width:0%;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step:last-child.active > .progress > .progress-bar {width: 100%;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot {background-color: #f5f5f5;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot:after {opacity: 0;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step:first-child  > .progress {left: 50%; width: 50%;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;direction: ltr !important;}
+    .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; direction: ltr !important;}
+    /*END Form Wizard*/
+</style>
+
+<p:outputPanel class="row bs-wizard" style="border-bottom:0;">
+
+
+    <div class="col-xs-3 bs-wizard-step #{loginBean.demandeur.etape eq 0 ?'active':loginBean.demandeur.etape gt 0 ? 'complete':'disabled'}">
+        <div class="text-center bs-wizard-stepnum value">1</div>
+        <div class="progress progress-striped" ><div class="progress-bar progress-bar-success"></div></div>
+        <a href="editCompteDemandeur.xhtml" class="bs-wizard-dot" >
+
+
+        </a>
+        <div class="bs-wizard-info text-center value">#{projet.steps_item1}</div>
+    </div>
+
+    <div class="col-xs-3 bs-wizard-step #{loginBean.demandeur.etape eq 1 ?'active':loginBean.demandeur.etape gt 1 ? 'complete':'disabled'}"><!-- complete -->
+        <div class="text-center bs-wizard-stepnum  value">2</div>
+        <div class="progress "><div class="progress-bar"></div></div>
+        <a href="editInfosPersonnelDemandeur.xhtml"  class="bs-wizard-dot "></a>
+        <div class="bs-wizard-info text-center value">#{projet.steps_item2}</div>
+    </div>
+
+    <div class="col-xs-3 bs-wizard-step #{loginBean.demandeur.etape eq 2 ?'active':loginBean.demandeur.etape gt 2 ? 'complete':'disabled'}"><!-- complete -->
+        <div class="text-center bs-wizard-stepnum value">3</div>
+        <div class="progress"><div class="progress-bar"></div></div>
+        <a href="editDemande.xhtml" class="bs-wizard-dot"></a>
+        <div class="bs-wizard-info text-center value">#{projet.steps_item3}</div>
+    </div>
+
+    <div class="col-xs-3 bs-wizard-step #{loginBean.demandeur.etape eq 3 ?'active':loginBean.demandeur.etape gt 3 ? 'complete':'disabled'}"><!-- active -->
+        <div class="text-center bs-wizard-stepnum value">4</div>
+        <div class="progress"><div class="progress-bar"></div></div>
+        <a href="confirmation.xhtml" class="bs-wizard-dot"></a>
+        <div class="bs-wizard-info text-center value">#{projet.steps_item4}</div>
+    </div>
+
+</p:outputPanel>
+
+
+
+
+</html>

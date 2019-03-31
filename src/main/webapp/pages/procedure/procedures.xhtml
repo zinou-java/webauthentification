@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+
+</h:head>
+<h:body>
+
+    <ui:composition template="../template/fullPageLayout.xhtml">
+        <ui:define name="content">
+
+            <p:panel id="basic"  style="margin-bottom:20px">
+            <p:outputPanel deferred="true">
+                <h1><strong>#{projet.procedure}</strong></h1>
+                <p><h3><span class="text-danger"> <strong>#{projet.procedure_titre}</strong>
+                </span>
+                </h3></p>
+            </p:outputPanel>
+            </p:panel>
+            <div class="container" style="width: 1000px">
+
+
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-badge">1</div>
+                        <div class="timeline-panel" >
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">#{projet.procedure1}</h4>
+
+                            </div>
+                            <div class="timeline-body">
+                                <p>
+                                    <ul>
+                                        <li>#{projet.msg1_procedure_1}</li>
+                                        <li>#{projet.msg2_procedure_1}</li>
+                                        <li>#{projet.msg3_procedure_1}</li>
+
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge warning">2</div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">#{projet.procedure2}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>
+                                    <ul>
+                                        <li>#{projet.msg1_procedure_2}</li>
+                                        <li>#{projet.msg2_procedure_2}</li>
+                                        <li>#{projet.msg3_procedure_2}</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-badge danger">3</div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">#{projet.procedure3}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>
+                                    <ul>
+                                        <li>#{projet.msg1_procedure_3}</li>
+                                        <li>#{projet.msg2_procedure_3}</li>
+                                        <ol style="list-style: decimal inside;">
+                                            <li>#{projet.msg3_procedure_3}</li>
+                                            <li>#{projet.msg4_procedure_3}</li>
+                                            <li>#{projet.msg5_procedure_3}</li>
+                                            <li>#{projet.msg6_procedure_3}</li>
+                                            <li>#{projet.msg7_procedure_3}</li>
+                                        </ol>
+
+                                    </ul>
+                                    #{projet.msg8_procedure_3}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge success">4</div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">#{projet.procedure4}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>#{projet.msg1_procedure_4}</p>
+
+                            </div>
+                        </div>
+                    </li>
+                    <p:spacer></p:spacer>
+
+                    <li>
+                        <div class="timeline-badge info">5</div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">#{projet.procedure5}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>
+                                        <p>#{projet.msg1_procedure_5}</p>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <h:form id="conditions">
+        <pe:blockUI target="condition" widgetVar="conditions">
+            <i class="fa fa-spinner fa-spin"></i>
+        </pe:blockUI>
+    <p:dialog widgetVar="condition"  showHeader="true" header="Conditions Générales" appendTo="@this"
+              width="90%" modal="true" closable="false"  height="90%"
+              visible="#{loginBean.compte ne null and !loginBean.demandeur.conditionAcceptes }"
+              id="condition" rendered="true">
+        <p:outputPanel style="padding:10px 0;">
+
+            <div  style="padding:10px 0;">
+                <lu >
+                    <li><h3>Un demandeur au master n’a le droit de postuler sur la plateforme qu’avec un seul et unique compte.</h3></li>
+                    <li><h3>Toute fausse déclaration relative au parcours universitaire ou aux données personnelles du demandeur
+                        entraînera l'annulation automatique et immédiate de la candidature et expose son auteur aux sanctions pénales prévues par la loi.</h3></li>
+                    <li><h3> En confirmant votre candidature vous déclarez sur l'honneur :</h3></li>
+                    <ul>
+                        <li><h3>	Ne pas être  actuellement inscrit dans un parcours universitaire (quelque soit le cycle).</h3></li>
+                        <li><h3>	Ne pas être Titulaire d'un  diplôme de master,
+                            en Algérie. Pour ce cas de figure précis, la prise en charge de la candidature n’est pas assurée par cette procédure.</h3></li>
+                    </ul>
+                    <h3>Dans le cas contraire votre candidature sera systématiquement annulée,</h3>
+                    <li><h3> Une fois votre candidature est confirmée , vous ne pourrez plus rien modifier.</h3></li>
+                    <li><h3> Les résultats de votre candidature peuvent être consultés sur le même espace, en utilisant votre e-mail et votre mot de passe.</h3></li>
+                    <li><h3> L'acceptation au master dépend de la recevabilité du dossier du demandeur, de son classement et du nombre de places pédagogiques disponibles (arrêté 363 du 09 juin 2014).
+                        Par conséquent, le dépôt d’une candidature au master n'implique pas automatiquement son acceptation,</h3></li>
+                    <li><h3> Un classement des candidatures est établi pour l'accès aux spécialités, en regard des conditions édictées
+                        par la réglementation en vigueur (arrêté 714 du 03 novembre 2011) .</h3></li>
+
+
+                </lu>
+            </div>
+
+            <center>
+            <p:commandButton actionListener="#{confirmationBean.accepterCondition()}"
+                             value="Lu et accepté" immediate="true"
+                             onstart="PF('conditions').block()"
+                             onsuccess="PF('conditions').unblock()"
+                             ajax="true" update="@all"
+                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            </center>
+
+        </p:outputPanel>
+    </p:dialog>
+    </h:form>
+</h:body>
+</html>

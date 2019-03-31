@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+    <ui:composition template="template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <h:form id="editDocumentCandidatForm">
+
+                <ui:include src="steps.xhtml"></ui:include>
+
+                <ul>
+                    <h5>
+                        <li><p class="text-danger"> Les fichiers à déposer doivent être en format PDF</p></li>
+                    </h5>
+                </ul>
+                <style type="text/css">
+                    .logo {
+                        width: 5%
+                    }
+
+                    .detail {
+                        width: 95%;
+                        padding-left: 25px;
+                    }
+
+                    .detail td {
+                        font-size: 24px;
+                    }
+                </style>
+
+
+
+                    <p:repeat value="#{demandeBean.demandeAuthentification}" var="demandeAuthentification">
+                        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()">
+                                <f:setPropertyActionListener value="#{demandeAuthentification}" target="#{demandeBean.demandeAuthentifications}" />
+                                <p:graphicImage name="demo/images/car/#{demandeAuthentification.brand}-big.gif" />
+                            </p:commandLink>
+
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{demandeBean.demandeur.nomLatin}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Year:" />
+                                    <h:outputText value="#{demandeBean.demandeur.nomLatin}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Color:" />
+                                    <h:outputText value="#{demandeBean.demandeur.nomLatin}" style="font-weight: bold"/>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </h:panelGrid>
+                        <hr />
+                    </p:repeat>
+
+                    <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+                        <p:outputPanel id="carDetail" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty demandeBean.demandeur.nomLatin}" columnClasses="label,value">
+                                <f:facet name="header">
+                                    <p:graphicImage name="demo/images/car/#{demandeBean.demandeur.nomLatin}-big.gif"/>
+                                </f:facet>
+
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{demandeBean.demandeur.nomLatin}" />
+
+                                <h:outputText value="Year" />
+                                <h:outputText value="#{demandeBean.demandeur.nomLatin}" />
+
+                                <h:outputText value="Color:" />
+                                <h:outputText value="#{demandeBean.demandeur.nomLatin}" style="color:#{dataListView.selectedCar.color}"/>
+
+                                <h:outputText value="Price" />
+                                <h:outputText value="\$#{demandeBean.demandeur.nomLatin}" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+
+</html>
