@@ -38,7 +38,6 @@ public class EquipementBean extends  BaseBean{
     }
 
     public void add(){
-           System.out.println( equipement.getLabelEquipement());
            equipementService.save(equipement);
            equipement = new Equipement();
         equipements = equipementService.findAll();
