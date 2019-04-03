@@ -27,7 +27,7 @@ public class EquipementBean extends  BaseBean{
     @PostConstruct
     public void init() {
         equipement = new Equipement();
-        getAll();
+
     }
 
     @PostConstruct
