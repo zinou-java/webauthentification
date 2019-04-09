@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
 <h:head/>
 <h:body>
 
@@ -54,12 +54,19 @@
                     <p:inputText value="#{equipementBean.equipement.labelEquipement}"/>
 
 
-                </p:panelGrid> 
+                </p:panelGrid>
 
                      <p:commandButton icon="pi pi-search" value="Ajouter" action="#{equipementBean.add}" update="equipementForm, :equipementTable" />
 
 
 </h:form>
+
+            <p:selectOneMenu style="width:125px">
+
+                <f:selectItems value="#{equipementBean.equipements}" var="equi" itemValue="#{equi.labelEquipement}"
+                               itemLabel="#{equi.labelEquipement}"/>
+            </p:selectOneMenu>
+
         </ui:define>
     </ui:composition>
 </h:body>
