@@ -1,7 +1,7 @@
 Dans cet application, nous allons vous montrer comment intégrer JSF à Spring avec en utilisant:
 
 1 - JSF XML faces-config.xml
-2 - Annotations de printemps
+2 - Annotations de spring
 
 Outils et technologies utilisés:
 
