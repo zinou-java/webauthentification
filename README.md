@@ -1,0 +1,13 @@
+Dans cet application, nous allons vous montrer comment intégrer JSF à Spring avec managed bean en utilisant:
+
+1 - JSF XML faces-config.xml 
+2 - Annotations de spring
+
+Outils et technologies utilisés:
+
+1- JSF 2.2.8 
+2- Spring 3.1.2.LELEASE 
+3- Maven 3 
+4- IntelliJ IDEA 2017.3 x64 
+5- Tomcat 8 ou 9
+6- Object Relational Mapping : postgresql 10

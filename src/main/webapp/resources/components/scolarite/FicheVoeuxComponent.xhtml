@@ -83,11 +83,7 @@
 																	<f:setPropertyActionListener target="#{ficheVoeuxBB.selectedVoeuIndex}" value="#{row.order}" />	
 															</p:commandButton>
 								</p:column>
-<!-- 								<p:column headerText="#{chargeMsgs.fiche_veoux_component_voeux_data_table_list_header}" rendered="#{not (cc.attrs.toEdit and ficheVoeuxBB.toEdit and ficheVoeuxBB.canSaveFiche)}"> -->
-<!-- 										<p:dataList value="#{cc.attrs.managedBean.lignesVoeux[row.order]}" var="line"  emptyMessage=""> -->
-<!-- 		            								  #{line.libelleNiveau}, #{line.libelleMc}, #{line.codeTypeAp} -->
-<!-- 		    							</p:dataList> -->
-<!-- 								</p:column> -->
+
 								<p:rowExpansion >
 																	<p:dataTable id="lignesVoeuDataTable" var="row1"  value="#{cc.attrs.managedBean.lignesVoeux[row.order]}"
 																							rowKey="#{row1.id}"
