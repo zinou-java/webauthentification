@@ -1,10 +1,12 @@
 package dz.gouv.mesrs.ManagedBean;
 
 
+import dz.gouv.mesrs.model.Caracteristique;
 import dz.gouv.mesrs.model.Equipement;
-import dz.gouv.mesrs.model.Outils_carateristque;
+import dz.gouv.mesrs.model.OutilsCarateristque;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
@@ -18,34 +20,49 @@ import java.util.List;
 @Scope("session")
 @ViewScoped
 
-public class EquipementBean extends  BaseBean{
+public class EquipementBean extends BaseBean {
 
 
-    List<Equipement> equipements ;
+    List<Equipement> equipements;
 
     private Equipement equipement;
-    private Outils_carateristque outils_carateristque;
+    private OutilsCarateristque outilsCarateristque;
+    private List<Caracteristique> caracteristiques;
+    private Integer idCaracteristique;
+    private Integer idEquipement;
 
     @PostConstruct
     public void init() {
         equipement = new Equipement();
-        outils_carateristque = new Outils_carateristque();
+        outilsCarateristque = new OutilsCarateristque();
 
     }
 
     @PostConstruct
-     public void getAll(){
+    public void getAll() {
         equipements = equipementService.findAll();
+        caracteristiques = carateristqueService.findAll();
 
 
     }
 
-    public void add(){
 
-        equipement = equipementService.save(equipement);
-          outils_carateristque.setIdOUtil(equipement);
+    public void addEquipementAndOutils(){
 
-           equipement = new Equipement();
+        Equipement e = getEquipementService().findById(idEquipement);
+        Caracteristique c =getCarateristqueService().findById(idCaracteristique);
+        outilsCarateristque.setIdOutil(e);
+        outilsCarateristque.setIdCaracteristique(c);
+        outilCarateristqueService.save(outilsCarateristque);
+
+
+
+
+    }
+    public void add() {
+
+        equipementService.save(equipement);
+        equipement = new Equipement();
         equipements = equipementService.findAll();
         FacesContext.getCurrentInstance().addMessage
                 (null, new FacesMessage(FacesMessage.SEVERITY_INFO, "l'equipempent est enregistré", null));
@@ -54,7 +71,7 @@ public class EquipementBean extends  BaseBean{
 
 
     public void remove(Equipement eqp) {
-                equipementService.remove(eqp);
+        equipementService.remove(eqp);
         equipements = equipementService.findAll();
         FacesContext.getCurrentInstance().addMessage
                 (null, new FacesMessage(FacesMessage.SEVERITY_INFO, "l'equipempent est supprimé", null));

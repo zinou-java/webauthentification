@@ -14,36 +14,34 @@
         <ui:define name="content">
 
 
-
-    <p:dataTable  value="#{equipementBean.equipements}" var="outils" id="equipementTable">
-
-
-        <p:column headerText="Id">
-            <h:outputText value="#{outils.id}"/>
-        </p:column>
-
-        <p:column headerText="L'&eacute;quipement">
-            <h:outputText value="#{outils.labelEquipement}"/>
-        </p:column>
-
-        <p:column headerText="Operation">
-            <h:form>
+            <p:dataTable value="#{equipementBean.equipements}" var="outils" id="equipementTable">
 
 
-                <p:commandButton icon="pi pi-search" value="Modifier"
-                                 action="#{equipementBean.setEquipement(outils)}" update=":equipementForm" />
+                <p:column headerText="Id">
+                    <h:outputText value="#{outils.id}"/>
+                </p:column>
 
-                <p:commandButton icon="pi pi-search" value="Supprimer"
-                                 actionListener="#{equipementBean.remove(outils)}" update=":equipementTable"/>
+                <p:column headerText="L'&eacute;quipement">
+                    <h:outputText value="#{outils.labelEquipement}"/>
+                </p:column>
 
-            </h:form>
-
-
-
-        </p:column>
+                <p:column headerText="Operation">
+                    <h:form>
 
 
-    </p:dataTable>
+                        <p:commandButton icon="pi pi-search" value="Modifier"
+                                         action="#{equipementBean.setEquipement(outils)}" update=":equipementForm"/>
+
+                        <p:commandButton icon="pi pi-search" value="Supprimer"
+                                         actionListener="#{equipementBean.remove(outils)}" update=":equipementTable"/>
+
+                    </h:form>
+
+
+                </p:column>
+
+
+            </p:dataTable>
 
 
             <h:form id="equipementForm">
@@ -53,20 +51,36 @@
                     Nom de l'&eacute;quipement
                     <p:inputText value="#{equipementBean.equipement.labelEquipement}"/>
 
-
+                    <p:commandButton icon="pi pi-search" value="Ajouter un equipement" action="#{equipementBean.add}"
+                                     update="equipementForm, :equipementTable"/>
                 </p:panelGrid>
 
-                     <p:commandButton icon="pi pi-search" value="Ajouter" action="#{equipementBean.add}" update="equipementForm, :equipementTable" />
 
+                <p:panelGrid columns="2" style="width: 100%" >
+                    <p:outputLabel value="equipement"></p:outputLabel>
 
-</h:form>
+                    <p:selectOneMenu style="width:173px" value="#{equipementBean.idEquipement}">
 
-            <p:selectOneMenu style="width:125px">
+                        <f:selectItems value="#{equipementBean.equipements}" var="equi"
+                                       itemValue="#{equi.id}"
+                                       itemLabel="#{equi.labelEquipement}"/>
+                        <p:ajax></p:ajax>
+                    </p:selectOneMenu>
 
-                <f:selectItems value="#{equipementBean.equipements}" var="equi" itemValue="#{equi.labelEquipement}"
-                               itemLabel="#{equi.labelEquipement}"/>
-            </p:selectOneMenu>
+                    <p:outputLabel value="Caracteristique"></p:outputLabel>
+                    <p:selectOneMenu style="width:173px" value="#{equipementBean.idCaracteristique}">
 
+                        <f:selectItems value="#{equipementBean.caracteristiques}" var="carac"
+                                       itemValue="#{carac.id}"
+                                       itemLabel="#{carac.nomCaracteristique}"/>
+                        <p:ajax></p:ajax>
+                    </p:selectOneMenu>
+
+                    <p:commandButton icon="pi pi-search" value="Ajouter un equipement" action="#{equipementBean.addEquipementAndOutils}"
+                                     update="equipementForm, :equipementTable"/>
+
+                </p:panelGrid>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>
