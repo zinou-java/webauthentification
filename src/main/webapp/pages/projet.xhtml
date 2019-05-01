@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+
+<div class="progress progress-striped"><div class="progress-bar progress-bar-success"></div></div>
+<a href="editCompteDemandeur.xhtml" class="bs-wizard-dot">
+
+
+</a>
+<h:body>
+
+
+
+    <p:messages id="messages"/>
+
+    <ui:composition template="/pages/template/fullPageLayout.xhtml">
+        <ui:define name="content">
+            <h:form id="demande">
+
+
+                <div class="alert alert-info">
+                    <strong>Déposer une nouvelle demande</strong>
+
+
+                <h:outputLink id="fade" value="#">
+                    <p:commandButton value="Ajouter Demande" icon="fa fa-fw fa-plus"
+                                     style="float: right"
+                                     actionListener="#{equipementBean.show}" update="demande"/>
+                </h:outputLink>
+                <p:tooltip id="toolTipFade" for="fade" value="Ajouter un nouveau projet"  position="top"/>
+                </div>
+
+
+
+            <p:dataTable value="#{equipementBean.projets}" var="projets"  >
+
+                <p:column headerText="N°" width="7%">
+                    <h:outputText value="#{projets.id}"/>
+
+                </p:column>
+
+                <p:column headerText="Annee" width="8%" >
+                    <h:outputText value="#{projets.annDnotification}"/>
+
+                </p:column>
+
+                <p:column headerText="Montant" width="9%">
+                    <h:outputText value="#{projets.montant}"/>
+
+                </p:column>
+
+                <p:column headerText="Conference" width="10%">
+                    <h:outputText value="#{projets.confregionale.region}"/>
+
+                </p:column>
+
+                <p:column headerText="Etablissement" width="11%">
+                    <h:outputText value="#{projets.idetablissement.etablissement}"/>
+
+                </p:column>
+
+                <p:column headerText="credit" width="10%">
+                    <h:outputText value="#{projets.credit}"/>
+
+
+                </p:column>
+                <p:column headerText="#" width="15%">
+
+
+
+                    <p:commandButton value="Modifier"
+                                          process="@this" ajax="true" action="#{equipementBean.setProjet(projets)}"  />
+
+
+
+                       <h:outputLink id="sup" value="#">
+                           <p:commandButton icon="fa fa-fw fa-trash" id="btnDelete"
+                                         style="background-color: #f53f28;border-color: #f53f28;"
+                                         update="@form" ajax="true" actionListener="#{equipementBean.removeProjet(projets)}" />
+                       </h:outputLink>
+                    <p:tooltip id="toolTipFad" for="sup" value="supprimer" position="top"/>
+                </p:column>
+
+            </p:dataTable>
+
+
+
+            <div class="alert alert-info">
+                <strong>Compléter les information ci dessus</strong>
+            </div>
+
+
+
+                <div>
+                    <p:panelGrid columns="2" style="width:100%">
+                        <f:facet name="header">
+                            <td colspan="2" role="columnheader">Information sur le document soumis de canvas</td>
+
+                        </f:facet>
+                    </p:panelGrid>
+                </div>
+
+
+
+                <p:panelGrid  columns="2" style="width: 100%" rendered = "#{equipementBean.shownew}" >
+
+
+                    <label  class="ui-outputlabel ui-widget value">Année de notification</label>
+                    <p:inputText value="#{equipementBean.projet.annDnotification}"/>
+
+
+
+                    <label class="ui-outputlabel ui-widget value">Montant</label>
+                    <p:inputText value="#{equipementBean.projet.montant}"/>
+
+
+                    <label  class="ui-outputlabel ui-widget value">Conférence régionale</label>
+                    <p:selectOneMenu style="width:160px" value="#{equipementBean.confregionaleListe}">
+
+                        <f:selectItems value="#{equipementBean.listes}" var="reg"
+                                       itemValue="#{reg.id}"
+                                       itemLabel="#{reg.region}"/>
+                        <p:ajax></p:ajax>
+                    </p:selectOneMenu>
+
+
+                    <label class="ui-outputlabel ui-widget value">Établissement </label>
+                    <p:selectOneMenu style="width:160px" value="#{equipementBean.etablissementListe}">
+
+                        <f:selectItems value="#{equipementBean.listes}" var="list"
+                                       itemValue="#{list.id}"
+                                       itemLabel="#{list.etablissement}"/>
+                        <p:ajax></p:ajax>
+                    </p:selectOneMenu>
+
+
+                    <label class="ui-outputlabel ui-widget value">Crédit budgétaire</label>
+                    <p:inputText value="#{equipementBean.projet.credit}"/>
+
+                </p:panelGrid>
+
+
+                <br></br>
+                <p:panelGrid columns="2" style="width:100%">
+                <f:facet name="header">
+
+                <p:commandButton value="Enregistrer" action="#{equipementBean.addProjet}"
+                                 update="@form"
+                                 style="background-color: #21ad4f;border-color: #21ad4f; float: right"
+                                 icon="fa fa-fw fa-save"/>
+
+                <p:commandButton value="Retour" action="#{equipementBean.addProjet}"
+                                 update="@form"
+                                 style="background-color: #f53f28;border-color: #f53f28; float: left"
+
+                                 icon="fa fa-fw  fa-undo"/>
+                </f:facet>
+                </p:panelGrid>
+
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

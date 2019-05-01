@@ -11,7 +11,9 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "caracteristique")
 
-public class Carac extends BaseEntity {
+public class Caracteristique extends BaseEntity {
+
+
     @Column (name = "nom")
-    private String nomCarac;
+    private String nomCaracteristique;
 }

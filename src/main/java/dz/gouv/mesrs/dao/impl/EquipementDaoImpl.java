@@ -6,7 +6,7 @@ import dz.gouv.mesrs.model.Equipement;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("equipementDaoImpl")
+@Repository ("equipementDaoImpl")
 public class EquipementDaoImpl extends CommonDaoImpl<Equipement, Integer> implements
         EquipementDao {
 
