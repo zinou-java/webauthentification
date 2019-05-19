@@ -13,19 +13,85 @@
     <ui:composition template="/pages/template/fullPageLayout.xhtml">
         <ui:define name="content">
 
+            <div>
+                <ui:include src="steps7.xhtml"></ui:include>
+            </div>
 
-            <p:dataTable value="#{equipementBean.equipements}" var="outils" id="equipementTable">
+            <br></br>
+            <br></br>
 
 
+
+            <div class="alert alert-info">
+            <strong>Choisir votre équipement</strong>
+            </div>
+
+
+             <h:form>
+
+                 <p:dataTable value="#{equipementBean.outilsCaracteristiques}" var="outilCar" id="up">
+
+                <p:column headerText="Id" width="7%">
+                    <h:outputText value="#{outilCar.id}"/>
+                </p:column>
+
+                <p:column headerText="Caracteristique">
+                    <h:outputText value="#{outilCar.idCaracteristique.nomCaracteristique}"/>
+                </p:column>
+
+                <p:column headerText="L'&eacute;quipement">
+                    <h:outputText value="#{outilCar.idOutil.labelEquipement}"/>
+                </p:column>
+
+                     <p:column headerText="outil">
+                         <h:outputText value="#{outilCar.idType.nom}"/>
+                     </p:column>
+
+                <p:column headerText="Operation">
+
+
+
+                        <p:commandButton icon="pi pi-search" value="Modifier"
+                                         action="#{equipementBean.setEquipement(outilCar)}" />
+
+                        <p:commandButton icon="fa fa-fw fa-trash" id="btnDelete"
+                                         style="background-color: #f53f28;border-color: #f53f28;"
+                                         actionListener="#{equipementBean.remove(outilCar)}"
+                                         update="up" ajax="true"/>
+                           </p:column>
             </p:dataTable>
 
 
-            <h:form id="equipementForm">
 
+    <br></br>
+    <br></br>
+
+    <p:growl id="msgs" showDetail="true" />
+    <p:fieldset legend="demande d'authentification" toggleable="true" toggleSpeed="500">
+
+
+    <div class="alert alert-info">
+        <strong>Compléter les information ci dessus</strong>
+    </div>
+
+
+
+    <div>
+        <p:panelGrid columns="2" style="width:100%">
+            <f:facet name="header">
+                <td colspan="2" role="columnheader">Information sur le document soumis de canvas</td>
+
+            </f:facet>
+        </p:panelGrid>
+    </div>
                 <p:panelGrid columns="2" style="width: 100%" >
-                    <p:outputLabel value="equipement"></p:outputLabel>
 
-                    <p:selectOneMenu style="width:173px" value="#{equipementBean.idEquipement}">
+                    <label class="ui-outputlabel ui-widget value">Quantité</label>
+                    <p:inputText value="#{equipementBean.projet.montant}"/>
+
+                    <label  class="ui-outputlabel ui-widget value">Equipement</label>
+
+                    <p:selectOneMenu style="width:400px" value="#{equipementBean.idEquipement}">
 
                         <f:selectItems value="#{equipementBean.equipements}" var="equi"
                                        itemValue="#{equi.id}"
@@ -33,8 +99,8 @@
                         <p:ajax></p:ajax>
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Caracteristique"></p:outputLabel>
-                    <p:selectOneMenu style="width:173px" value="#{equipementBean.idCaracteristique}">
+                    <label  class="ui-outputlabel ui-widget value">Caractéristiques</label>
+                    <p:selectOneMenu style="width:400px" value="#{equipementBean.idCaracteristique}">
 
                         <f:selectItems value="#{equipementBean.caracteristiques}" var="carac"
                                        itemValue="#{carac.id}"
@@ -42,11 +108,48 @@
                         <p:ajax></p:ajax>
                     </p:selectOneMenu>
 
-                    <p:commandButton icon="pi pi-search" value="Ajouter un equipement" action="#{equipementBean.addEquipementAndOutils}"
-                                     update="equipementForm, :equipementTable"/>
+                    <label  class="ui-outputlabel ui-widget value">Type</label>
+                    <p:selectOneMenu style="width:400px" value="#{equipementBean.idType}">
+
+                        <f:selectItems value="#{equipementBean.types}" var="typ"
+                                       itemValue="#{typ.id}"
+                                       itemLabel="#{typ.nom}"/>
+                        <p:ajax></p:ajax>
+                    </p:selectOneMenu>
 
                 </p:panelGrid>
-            </h:form>
+    </p:fieldset>
+
+            <br></br>
+
+            <p:panelGrid columns="2" style="width:100%">
+                <f:facet name="header">
+
+                    <p:button value="Suivant" href="http://localhost:8080/pages/demandeEquipement.xhtml"
+                              update="@form"
+                              style="background-color: deepskyblue;border-color: deepskyblue; float: right"
+
+                              icon="fa fa-fw fa-caret-right" />
+
+                    <p:commandButton value="Enregistrer" action="#{equipementBean.addEquipementAndOutils}"
+                                     update="@([id$=up])"
+                                     style="background-color: limegreen;border-color: limegreen; float: right"
+                                     icon="fa fa-fw fa-save"/>
+
+                    <p:button value="Retour" href="http://localhost:8080/pages/projet.xhtml"
+
+                                     update="@form"
+                                     style="background-color: #f53f28;border-color: #f53f28; float: left"
+                                     icon="fa fa-fw  fa-undo"/>
+
+
+
+                </f:facet>
+            </p:panelGrid>
+
+
+
+        </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

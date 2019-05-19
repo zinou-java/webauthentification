@@ -25,18 +25,26 @@ public class EquipementBean extends BaseBean {
     List<Projet> projets;
     List<Caracteristique> caracteristiques;
     List<Liste> listes;
+    List<Type> types;
+    List<Outilsprojet> outilsprojets;
+    List<OutilsCaracteristique> outilsCaracteristiques;
     private Boolean shownew;
+    private Boolean showhide;
 
 
     private Projet projet;
     private Equipement equipement;
     private OutilsCaracteristique outilsCaracteristique;
     private Liste liste;
+    private Type type;
+    private Outilsprojet outilsprojet;
     private Integer idCaracteristique;
     private Integer idEquipement;
+    private Integer idType;
     private Integer idProjet;
     private Integer etablissementListe;
     private Integer confregionaleListe;
+
 
     @PostConstruct
     public void init() {
@@ -44,7 +52,9 @@ public class EquipementBean extends BaseBean {
         outilsCaracteristique = new OutilsCaracteristique();
         projet = new Projet();
         liste = new Liste();
+        type = new Type();
         shownew = false;
+        showhide = true;
     }
 
     @PostConstruct
@@ -53,18 +63,26 @@ public class EquipementBean extends BaseBean {
         caracteristiques = carateristqueService.findAll();
         projets = projetService.findAll();
         listes = listeService.findAll();
-
+        types = typeService.findAll();
+        outilsCaracteristiques = outilCarateristqueService.findAll();
     }
 
 
     public void addEquipementAndOutils(){
 
+        Type t = getTypeService().findById(idType);
         Equipement e = getEquipementService().findById(idEquipement);
-        Caracteristique c =getCarateristqueService().findById(idCaracteristique);
+        Caracteristique c = getCarateristqueService().findById(idCaracteristique);
+
         outilsCaracteristique.setIdOutil(e);
         outilsCaracteristique.setIdCaracteristique(c);
-        outilCarateristqueService.save(outilsCaracteristique);
+        outilsCaracteristique.setIdType(t);
 
+        outilCarateristqueService.save(outilsCaracteristique);
+        outilsCaracteristiques = outilCarateristqueService.findAll();
+        FacesContext.getCurrentInstance().addMessage
+                (null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "l'equipempent est enregistré", null));
     }
 
 
@@ -79,6 +97,7 @@ public class EquipementBean extends BaseBean {
 
     }
 
+
     public void addProjet () {
 
         Liste l = getListeService().findById(etablissementListe);
@@ -89,8 +108,9 @@ public class EquipementBean extends BaseBean {
         projet = new  Projet();
         projets = projetService.findAll();
         FacesContext.getCurrentInstance().addMessage
-                (null, new FacesMessage(FacesMessage.SEVERITY_INFO, "l'equipempent est enregistré", null));
+                (null, new FacesMessage(FacesMessage.SEVERITY_INFO, "le projet est enregistré", null));
         }
+
 
     public void removeProjet(Projet pro) {
         projetService.remove(pro);
@@ -101,13 +121,14 @@ public class EquipementBean extends BaseBean {
 
 
 
-    public void remove(Equipement eqp) {
-        equipementService.remove(eqp);
-        equipements = equipementService.findAll();
+    public void remove(OutilsCaracteristique eqp) {
+        outilCarateristqueService.remove(eqp);
+        outilsCaracteristiques = outilCarateristqueService.findAll();
         FacesContext.getCurrentInstance().addMessage
                 (null, new FacesMessage(FacesMessage.SEVERITY_INFO, "l'equipempent est supprimé", null));
 
     }
+
             public  void show(){
             shownew = true;
 }

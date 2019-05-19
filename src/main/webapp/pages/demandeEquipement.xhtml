@@ -13,6 +13,13 @@
     <ui:composition template="/pages/template/fullPageLayout.xhtml">
         <ui:define name="content">
 
+            <div>
+                <ui:include src="steps7.xhtml"></ui:include>
+            </div>
+
+            <br></br>
+            <br></br>
+
 
             <p:dataTable value="#{equipementBean.equipements}" var="outils" id="equipementTable">
 

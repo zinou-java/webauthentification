@@ -40,6 +40,9 @@ public abstract class BaseBean {
     OutilCarateristqueService outilCarateristqueService;
 
     @Autowired
+    TypeService typeService;
+
+    @Autowired
     RefTypePieceConstitutiveService refTypePieceConstitutiveService;
 
     public abstract void init();

@@ -12,4 +12,5 @@ public class Equipement extends BaseEntity {
 
     @Column(name = "label")
     private String labelEquipement;
+
 }

@@ -19,4 +19,8 @@ public class OutilsCaracteristique extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "id_caraterstique")
     private Caracteristique idCaracteristique;
+
+    @ManyToOne
+    @JoinColumn (name = "id_type")
+    private Type idType;
 }

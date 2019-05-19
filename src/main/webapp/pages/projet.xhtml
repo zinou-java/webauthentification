@@ -14,8 +14,6 @@
 </a>
 <h:body>
 
-
-
     <p:messages id="messages"/>
 
     <ui:composition template="/pages/template/fullPageLayout.xhtml">
@@ -23,6 +21,16 @@
             <h:form id="demande">
 
 
+                <div>
+                    <ui:include src="steps7.xhtml"></ui:include>
+                </div>
+                <br></br>
+                <br></br>
+
+
+
+                <p:growl id="msgs" showDetail="true" />
+                <p:fieldset legend="Mon projet" style="margin-bottom:20px">
                 <div class="alert alert-info">
                     <strong>Déposer une nouvelle demande</strong>
 
@@ -37,7 +45,7 @@
 
 
 
-            <p:dataTable value="#{equipementBean.projets}" var="projets"  >
+            <p:dataTable value="#{equipementBean.projets}" var="projets" id="up" >
 
                 <p:column headerText="N°" width="7%">
                     <h:outputText value="#{projets.id}"/>
@@ -74,7 +82,7 @@
 
 
                     <p:commandButton value="Modifier"
-                                          process="@this" ajax="true" action="#{equipementBean.setProjet(projets)}"  />
+                                          process="@this" ajax="true" actionListener="#{equipementBean.setProjet(projets)}"  />
 
 
 
@@ -88,26 +96,33 @@
 
             </p:dataTable>
 
+                </p:fieldset>
 
-
-            <div class="alert alert-info">
-                <strong>Compléter les information ci dessus</strong>
-            </div>
-
-
-
-                <div>
-                    <p:panelGrid columns="2" style="width:100%">
-                        <f:facet name="header">
-                            <td colspan="2" role="columnheader">Information sur le document soumis de canvas</td>
-
-                        </f:facet>
-                    </p:panelGrid>
-                </div>
+                <br></br>
 
 
 
-                <p:panelGrid  columns="2" style="width: 100%" rendered = "#{equipementBean.shownew}" >
+
+<h:form rendered = "#{equipementBean.shownew}">
+
+    <p:growl id="msgs" showDetail="true" />
+    <p:fieldset legend="demande d'authentification" style="margin-bottom:20px">
+
+        <div class="alert alert-info">
+            <strong>Compléter les information ci dessus</strong>
+        </div>
+
+    <div>
+        <p:panelGrid columns="2" style="width:100%">
+            <f:facet name="header">
+                <td colspan="2" role="columnheader">Information sur le document soumis de canvas</td>
+
+            </f:facet>
+        </p:panelGrid>
+    </div>
+
+
+                <p:panelGrid  columns="2" style="width: 100%" >
 
 
                     <label  class="ui-outputlabel ui-widget value">Année de notification</label>
@@ -143,26 +158,28 @@
                     <p:inputText value="#{equipementBean.projet.credit}"/>
 
                 </p:panelGrid>
+    </p:fieldset>
 
 
                 <br></br>
                 <p:panelGrid columns="2" style="width:100%">
                 <f:facet name="header">
 
-                <p:commandButton value="Enregistrer" action="#{equipementBean.addProjet}"
-                                 update="@form"
-                                 style="background-color: #21ad4f;border-color: #21ad4f; float: right"
+                    <p:button value="Suivant" href="http://localhost:8080/pages/equipement.xhtml"
+                                     update="@form"
+                                     style="background-color: deepskyblue;border-color: deepskyblue; float: right"
+
+                                     icon="fa fa-fw fa-caret-right" />
+
+                    <p:commandButton value="Enregistrer" action="#{equipementBean.addProjet}"
+                                 update="@([id$=up])"
+                                 style="background-color: limegreen;border-color: limegreen; float: left"
                                  icon="fa fa-fw fa-save"/>
 
-                <p:commandButton value="Retour" action="#{equipementBean.addProjet}"
-                                 update="@form"
-                                 style="background-color: #f53f28;border-color: #f53f28; float: left"
-
-                                 icon="fa fa-fw  fa-undo"/>
                 </f:facet>
                 </p:panelGrid>
 
-
+</h:form>
 
             </h:form>
         </ui:define>
